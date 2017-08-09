@@ -1,0 +1,88 @@
+<div class="library_list">
+    <!-- ko if: deleted() == true -->
+    <div class="delete_file_ico">
+        <p>{{file}} &laquo;<!-- ko text: title --> <!-- /ko -->&raquo; <span style="text-transform: lowercase">{{isRemoved}}</span></p>
+        <p class="font_small blue cursor_point" data-bind="click: $data.restore">{{restore}}?</p>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: deleted() == false -->
+    <div class="info_point static_format float_left" >
+        <span class="inside_image" data-bind="css: getDocTypeClass(), click: onClickOpenPreview"></span>
+    </div>
+    <!-- ko if: process() && !hasError() -->
+    <div class="float_right persent_complete" data-bind="css: {'file_check': uploaded() == true && progress() == 0 }">
+        <!-- ko if: uploaded() == false && progress() <= 100 && progress() >= 0 -->
+        <input type="button" class="close_btn" data-bind="click: $data.cancel" />
+        <span class="upload_status float_right" data-bind="text: $data.progress()+'%'">...</span>
+        <span class="upload_status" >{{loading}}</span>
+        <!-- /ko -->
+        <!-- ko if: uploaded() == true && progress() == 0 -->
+        <span class="upload_status" data-bind="text: '{{check}}'"></span>
+        <!-- /ko -->
+        <!-- ko if: uploaded() == true && progress() < 100 && progress() > 0 -->
+        <input type="button" class="close_btn" data-bind="click: cancel" />
+        <span class="upload_status float_right" data-bind="text: $data.progress()+'%'"></span>
+        <span class="upload_status" >{{treatment}}</span>
+        <!-- /ko -->
+        <div class="preloader file_preloader">
+            <span class="preloader_core"></span>
+        </div>
+    </div>
+    <!-- /ko -->
+    <div class="file_information">
+        <!-- ko if: hasError() == 0 -->
+        <!-- ko if: renamed() == true -->
+
+        <!-- ko component: { name: 'rename-form', params: {} }-->
+        <!-- /ko -->
+
+        <!-- /ko -->
+
+        <!-- ko if: renamed() == false -->
+        <!-- ko if: progress() == 100 && process() == false -->
+        <a href="javascript: void 0" class="file_name" data-bind="text: title, click: onClickOpenPreview">{{title}}</a>
+        <!-- /ko -->
+        <!-- ko if: process() == true -->
+        <p data-bind="text: title">{{title}}</p>
+        <!-- /ko -->
+        <!-- ko if: !process() && !hasError() -->
+        <p>
+            <span>{{owner}}: <a class="file_autor" data-bind="text: ownerName, attr: {'href': hrefToFileOwnerUser() }">{{ownersName}}</a></span>
+        </p>
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if: hasError() > 0 -->
+        <p data-bind="text: title">{{title}}</p>
+        <p class="red" data-bind="text: errorMsg"></p>
+        <!-- /ko -->
+    </div>
+    <!-- ko if: process() == false && renamed() == false && hasError() == 0 -->
+
+
+    <!-- ko if: route().page === 'profile-page' -->
+    <!-- ko if: search_type() !== 'global' -->
+    <DIV data-bind="component: { name: 'profile-page-control', params: { componentName: 'FILE_CONTROL', data: $data }}"></DIV>
+    <!-- /ko -->
+    <!-- ko if: search_type() === 'global' -->
+    <!-- ko if: ownerId() === route().id -->
+    <DIV data-bind="component: { name: 'profile-page-control', params: { componentName: 'FILE_CONTROL', data: $data }}"></DIV>
+    <!-- /ko -->
+    <!-- ko if: ownerId() !== route().id -->
+    <DIV data-bind="component: { name: 'profile-friends-page-control', params: {componentName: 'FILE_CONTROL', data: $data }}"></DIV>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko if: route().page === 'webinar-start-page' -->
+    <DIV data-bind="component: { name: 'webinar-start-page-control', params: { componentName: 'FILE_CONTROL', data: $data }}"></DIV>
+    <!-- /ko -->
+
+    <!-- ko if: route().page === 'profile-friends-page' -->
+    <DIV data-bind="component: { name: 'profile-friends-page-control', params: {componentName: 'FILE_CONTROL', data: $data }}"></DIV>
+    <!-- /ko -->
+
+
+    <!-- /ko -->
+    <!-- /ko -->
+</div>

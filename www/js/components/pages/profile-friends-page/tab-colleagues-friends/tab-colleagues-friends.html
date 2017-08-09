@@ -1,0 +1,16 @@
+
+<!-- ko if: $root.colleagues() && !$root.colleagues().loading() && $root.colleagues().models().length !== 0 -->
+<!-- контрол поиска -->
+<div data-bind="component: { name: 'control-search', params: {
+    componentName: uiSearchControl,
+    placeholder: '{{searchAmongColleagues}}',
+    onLoad: function(){alert('onLoadCallback')}
+}}">
+</div>
+<!-- /ko -->
+
+
+<div data-bind="component: { name: 'colleagues-list-friends', params: {
+    componentName: uiColleaguesList,
+    route: $root.route
+}}"></div>

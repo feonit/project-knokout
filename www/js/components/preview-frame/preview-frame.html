@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="/css/video-js.css">
+<div class="preview_main_block">
+    <!-- ko if: fileModel() -->
+    <div class="preview_header">
+        <div class="preview_header_center">
+            <div class="info_point static_format float_left" >
+                <span class="inside_image" data-bind="css: fileModel().getDocTypeClass.call(fileModel())"></span>
+            </div>
+            <div class="float_right">
+                <div class="float_right margin_left_14px">
+                    <a href="#" type="button" data-title="{{close}}" data-bind="click: close, attr: { href: hrefToBack() }" class="icon_btn btns_red bottom_pos_tooltip" >
+                        <span class="inside_image delete_btn"></span>
+                    </a>
+                </div>
+                <div class="float_right" data-bind="with: fileModel()">
+                    <!-- ko if: availableInLibrary() == false -->
+                    <button type="button" class="icon_btn btns_green bottom_pos_tooltip" data-title="{{addToMe}}" data-bind="click: onClickCopyToMyLibrary" >
+                        <span class="inside_image add_tolibrary"></span>
+                    </button>
+                    <!-- /ko -->
+                    <button type="button" class="icon_btn btns_blue bottom_pos_tooltip" data-title="{{downloadFIle}}" data-bind="click: onClickDownload" >
+                        <span class="inside_image download_file"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="preview_file_name" data-bind="text: fileModel().title">{{review}}</div>
+        </div>
+    </div>
+    <div class="preview_container" data-bind="with: fileModel(), css: {'video_player_inner_bg' : fileModel().type() == 'VIDEO' || fileModel().type() == 'AUDIO'}">
+
+        <!-- ko if: type() == 'VIDEO' || type() == 'AUDIO' -->
+        <div class="video_center_block">
+            <video class="video-js vjs-default-skin" width="960" height="540" id="video_preview_container" poster="/images/error_image.png">
+                <!-- ko foreach: previews()-->
+                <!-- ko if: $data.mime() === 'video/webm'-->
+                <source data-bind="attr: { src: $data.src() }">
+                <!-- /ko -->
+                <!-- ko if: $data.mime() !== 'video/webm'-->
+                <source data-bind="attr: { src: $data.src() , type: $data.mime() + '; codecs=mp4a.40.2, avc1.66.30' }">
+                <!-- /ko -->
+                <!-- /ko -->
+            </video>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: type() == 'IMAGE' -->
+        <div class="prevert_scroll">
+            <img data-bind="attr: {'src': previews()[0].src() } " class='imagepreview'>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: type() == 'DOC' -->
+        <div class="prevert_scroll" style="height: 100%; margin-bottom: 0; overflow: hidden;">
+            <DIV style="height: 100%;" data-bind="component: { name: 'pdf-frame', params: {
+                    data: [ previews()[0].src() ]
+                }}">
+            </DIV>
+        </div>
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+</div>

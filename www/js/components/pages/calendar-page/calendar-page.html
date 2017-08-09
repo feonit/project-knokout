@@ -1,0 +1,64 @@
+<!-- ko with: $root -->
+<DIV>
+	<div class="right_btns">
+		<button class="float_right btn btns_blue today_month delay" data-title="{{goToToday}}" >{{today}}</button>
+	</div>
+	<h1 class="calendar_select_style">
+		{{calendar}}
+		<select>
+
+		</select>
+	</h1>
+
+	<div class="month_select top_scroll_value">
+		<div class="wrap_links_block finger_swipe">
+			<div name='1' class="calendar_link year_list curent_year">{{january}}</div>
+			<div name='2' class="calendar_link year_list curent_year">{{february}}</div>
+			<div name='3' class="calendar_link year_list curent_year">{{march}}</div>
+			<div name='4' class="calendar_link year_list curent_year">{{april}}</div>
+			<div name='5' class="calendar_link year_list curent_year">{{may}}</div>
+			<div name='6' class="calendar_link year_list curent_year">{{june}}</div>
+			<div name='7' class="calendar_link year_list curent_year">{{july}}</div>
+			<div name='8' class="calendar_link year_list curent_year">{{august}}</div>
+			<div name='9' class="calendar_link year_list curent_year">{{september}}</div>
+			<div name='10' class="calendar_link year_list curent_year">{{october}}</div>
+			<div name='11' class="calendar_link year_list curent_year">{{november}}</div>
+			<div name='12' class="calendar_link year_list curent_year">{{december}}</div>
+			<div class="slide_border"></div>
+		</div>
+	</div>
+	<div class="menu_switcher">
+		<!-- ================================================================================================================== -->
+		<div class="menu_step_blck">
+			<div class="month_select days_count">
+				<div class="days_links_block finger_swipe">
+					<div class="slide_border"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ======================================== success ============================================== -->
+	<div class="menu_step_blck" style="display: block" data-bind="with: calendar" id="calendarCounteiner">
+		<!-- ko if: items().length > 0 -->
+		<div class="margin_top_20px">
+		<!-- ko foreach: items -->
+		<webinar-calendar params="value: $data, index: $index"></webinar-calendar>
+		<!-- /ko -->
+		</div>
+		<!-- /ko -->
+		<!-- ko if: items().length == 0 && loaded -->
+		<div class="menu_step_blck" style="display: block;">
+			<div class="calendar_list" style="display: block;">
+				<div class="box_message">
+					<div class="info_point static_grey">
+						<span class="inside_image error_format"></span>
+					</div>
+					<div class="separate_message">{{noScheduledWebinars}}</div>
+					<div class="separate_message"><a href="/webinar/create">{{createYourWebinar}}</a> {{orUse}} <a href="#" data-bind="click: $root.search().openSearch"> {{theSearch}} </a>{{forSearch}}</div>
+				</div>
+			</div>
+		</div>
+		<!-- /ko -->
+	</div>
+</DIV>
+<!-- /ko -->

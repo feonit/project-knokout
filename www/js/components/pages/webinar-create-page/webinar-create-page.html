@@ -1,0 +1,48 @@
+<link rel="stylesheet" type="text/css" href="/css/video-js.css" />
+<!-- ko with: $root -->
+<DIV>
+	<div data-bind="with: eventModel()">
+		<div class="right_btns">
+			<!-- ko if: editMode -->
+			<button type="button" class="float_right btn btns_blue delay" data-title="{{saveChanges}}" data-bind="click: openPreview">{{save}}</button>
+			<!-- /ko -->
+			<!-- ko ifnot: editMode -->
+			<button type="button" class="float_right btn btns_blue delay" data-title="{{createWebinar}}" data-bind="click: openPreview">{{create}}</button>
+			<!-- /ko -->
+		</div>
+		<h1>
+			<!-- ko if: editMode -->
+			{{editWebinar}}
+			<!-- /ko -->
+			<!-- ko ifnot: editMode -->
+			{{createWebinar}}
+			<!-- /ko -->
+		</h1>
+	</div>
+	<div class="main_menu" id="event_create_tabs" data-bind="renderTabs: {
+	template: '_tabs-template',
+	hashEnabled: false,
+	tabs: [
+	{'tabTitle': '{{information}}'},
+	{'tabTitle': '{{participants}}'},
+	{'tabTitle': '{{timeline}}'}] }"></div>
+	<div class="menu_switcher" id="createEventForm">
+
+		<div class="menu_step_blck text_fields_block" id="infoWebinarTab">
+
+			<DIV data-bind="component: { name: 'tab-webinar-create-info', params: { componentName: 'componentTabWebinarCreateInfo' } }"></DIV>
+
+		</div>
+		<div class="menu_step_blck second_main_parent" id="participantsTab">
+
+			<DIV data-bind="component: { name: 'tab-webinar-create-participants', params: { componentName: 'componentTabParticipants' } }"></DIV>
+
+		</div>
+		<div class="menu_step_blck second_main_parent" id="timelineTab">
+
+			<DIV data-bind="component: { name: 'tab-webinar-create-timeline', params: { componentName: 'componentTabWebinarCreateTimeline' } }"></DIV>
+
+		</div>
+	</div>
+</DIV>
+<!-- /ko -->

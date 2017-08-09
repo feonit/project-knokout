@@ -1,0 +1,89 @@
+<script type="text/html" id="user-template">
+    <!-- ko foreach: models-->
+    <div class="library_list">
+        <div data-bind="component: { name: 'user-badge', params: { user: $data } }"></div>
+
+        <div class="follower_info">
+            <span class="foll_infospan" data-bind="text: $data.position"></span>
+            <span class="foll_infospan" data-bind="text: $data.address"></span>
+        </div>
+        <!-- ko if: $data.id() != $root.currentUser().id() -->
+        <!-- ko if: sendInvite() == true -->
+        <div class="req_down_field">
+            <!-- ko if: confirmed() == true -->
+            <label data-title="{{userIsAlreadyInYourColleagues}}" class="icon_static static_green">
+                <span class="inside_image success_file"></span>
+            </label>
+            <!-- /ko -->
+            <!-- ko if: confirmed() == false -->
+            <label data-title="{{youHaveSentRequest}}" class="icon_static static_orange">
+                <span class="inside_image wait_member"></span>
+            </label>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: sendInvite() == false -->
+        <div class="add_down_field">
+            <button type="button" data-bind="click: subscribe" class="icon_btn btns_green" data-title="{{subscribeToUser}}">
+                <span class="inside_image add_colleagues"></span>
+            </button>
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+</script>
+
+<!-- ko with: usersCollection() -->
+
+<!-- ko switch: loading() -->
+<!-- ko case: true -->
+<div class="preloader">
+    <span class="preloader_core"></span>
+</div>
+<!-- /ko -->
+<!-- ko case: false-->
+<!-- ko if: models().length == 0-->
+<!-- ko if: !initSearch()-->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image colleagues_format"></span>
+    </div>
+    <div class="separate_message">{{userHaveNotColleagues}}</div>
+</div>
+<!-- /ko -->
+<!-- ko if: initSearch()-->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image colleagues_format"></span>
+    </div>
+    <div class="separate_message">{{yourSearchEmpty}}</div>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if: initSearch() -->
+<!-- ko if: where({ search_type : 'user' }).length > 0 -->
+<div class="group_name_txt">{{groupOfUserUsers}}</div>
+<div data-bind="template: { name: 'user-template', data: { models : where({ search_type : 'user' }) } }"></div>
+<!-- /ko -->
+<!-- ko if: where({ search_type : 'global' }).length > 0 -->
+<div class="group_name_txt">{{groupOfOtherUsers}}</div>
+<div data-bind="template: { name: 'user-template', data: { models : where({ search_type : 'global' }) } }"></div>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if: !initSearch() -->
+<div data-bind="template: { name: 'user-template', data: { models : models } }"></div>
+<!-- /ko -->
+
+<!-- ko if: uploading() -->
+<div class="preloader">
+    <span class="preloader_core"></span>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- /ko -->

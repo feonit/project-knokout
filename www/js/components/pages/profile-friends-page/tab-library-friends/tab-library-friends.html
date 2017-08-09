@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="/css/video-js.css">
+
+<!-- Это для вкладки с библеотекой юзера -->
+
+<!-- ko if: $root.catalogViewModel() && !$root.catalogViewModel().loading() && !$root.catalogViewModel().noItems() -->
+<!-- контрол поиска -->
+<div data-bind="component: { name: 'control-search', params: {
+    componentName: uiSearchControl,
+    placeholder: '{{searchInLibrary}}',
+    onLoad: function(){alert('onLoadCallback')}
+}}">
+</div>
+<!-- /ko -->
+
+<!-- ko if: displayMode() === 'catalog' -->
+<!-- режим каталога -->
+<div data-bind="component: { name: 'catalog-tree-friends', params: { componentName: uiCatalogLibrary, route: $root.route } }"></div>
+<!-- /ko -->
+
+
+<!-- ko if: displayMode() === 'files' -->
+<!-- режим списка файлов -->
+<div data-bind="component: { name: 'file-list-friends', params: { componentName: uiFilesList, route: $root.route } }"></div>
+<!-- /ko -->

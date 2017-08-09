@@ -1,0 +1,27 @@
+<div class="library_search" >
+    <div class="input_field">
+        <!-- текстовое поле -->
+        <label>
+            <input type="text" class="search_ipt mid_align" data-bind="
+        attr: {
+            placeholder: placeholder
+        },
+        enable: isEnabled,
+        enterKey: onEnterKey,
+        validate: searchString,
+        value: searchString,
+        valueUpdate: 'afterkeydown'
+    ">
+        </label>
+        <!-- кнопка - иконка - сбросить -->
+        <div class="err_note_img clear_field_inp" data-title="{{reset}}" data-bind="
+        visible: initSearch,
+        click: onClickReset
+    "></div>
+        <!-- кнопка - иконка - начать поиск -->
+        <div class="err_note_img search_btn absolute_tool" data-title="{{find}}" data-bind="
+        visible: !initSearch(),
+        click: onClickSearch
+    "></div>
+    </div>
+</div>

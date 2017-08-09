@@ -1,0 +1,7 @@
+<div class="input_field">
+    <input type="text" class="regular_input time_width align_center time_select_input" data-bind='validate: observableAttribute, disable: disable' value="" placeholder="{{hhmm}}">
+    <button type="button" tabindex="-1" class="triger_btn leftTop_trig_time" data-bind="event: { mousedown: bindTimer.bind($data, 'incrementHours'), mouseup: unbindTimer }"></button>
+    <button type="button" tabindex="-1" class="triger_btn leftBot_trig_time" data-bind="event: { mousedown: bindTimer.bind($data, 'decrementHours'), mouseup: unbindTimer }"></button>
+    <button type="button" tabindex="-1" class="triger_btn rightTop_trig_time" data-bind="event: { mousedown: bindTimer.bind($data, 'incrementMinutes'), mouseup: unbindTimer }"></button>
+    <button type="button" tabindex="-1" class="triger_btn rightBot_trig_time" data-bind="event: { mousedown: bindTimer.bind($data, 'decrementMinutes'), mouseup: unbindTimer }"></button>
+</div>

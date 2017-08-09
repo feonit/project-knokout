@@ -1,0 +1,23 @@
+<!-- ko if: archive_movie_state() == null || archive_movie_state() == 'ON' -->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image error_format"></span>
+    </div>
+    <div class="separate_message">{{noEntry}}</div>
+</div>
+<!-- /ko -->
+<!-- ko if: archive_movie_state() == 'CONVERTING' -->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image error_format"></span>
+    </div>
+    <div class="separate_message">{{entryProcessing}}</div>
+</div>
+<!-- /ko -->
+<!-- ko if: archive_movie_state() == 'READY' -->
+<div class="view_webinar_record">
+    <video class="video-js vjs-default-skin" id="archive" poster="/images/error_image.png" width="720" height="405">
+        <source src="" data-bind="attr: { 'src' : sourceRecord() } ">
+    </video>
+</div>
+<!-- /ko -->

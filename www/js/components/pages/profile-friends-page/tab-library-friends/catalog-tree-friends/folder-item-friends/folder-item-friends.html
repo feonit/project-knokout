@@ -1,0 +1,51 @@
+<li class="catalog_item_folder">
+    <div class="library_list" data-bind="
+        css: { 'catalog_folder_root' : isRoot() },
+        visible: !isRoot()">
+
+        <!-- ko if: files() && files().isFetching() -->
+        <div class="preloader folder_open_preloader" style="margin: 0">
+            <span class="preloader_core"></span>
+        </div>
+        <!-- /ko -->
+
+        <div class="folder_file_item">
+            <!-- ko if: isEmptyRealy() -->
+            <div data-bind="click: onClickAtEmptyFolder" class="big_icon_point closed_folder_ico grey_folder_ico"></div>
+            <!-- /ko -->
+            <!-- ko if: !isEmptyRealy() -->
+            <div class="big_icon_point closed_folder_ico" data-bind="click: toggleIsOpenedState, css: isOpened() ? 'open_folder_ico' : 'closed_folder_ico' "></div>
+            <!-- /ko -->
+        </div>
+
+        <div class="file_informations">
+            <!-- ko if: !isEmptyRealy() -->
+            <a href="javascript: void 0" ondragstart="return false;"  class="folder_name" data-bind="text: $data.title(), click: toggleIsOpenedState">{{nameOfFolder}}</a>
+            <!-- /ko -->
+
+            <!-- ko if: isEmptyRealy() -->
+            <p class="file_name" data-bind="text: $data.title(), click: toggleIsOpenedState">{{nameOfFolder}}</p>
+            <p><span>{{folderIsEmpty}}</span></p>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+    </div>
+
+    <div class="contents_of_folder" data-bind="css: isOpened() ? 'folder_is_open overflow_blink' : 'folder_is_closed' ">
+        <ul class="inside_folder_ul" >
+            <!-- ko if: files -->
+            <!-- ko foreach: childrens -->
+            <!-- ko component: { name: 'folder-item-friends', params: {data: $data} } -->
+            <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko with: files -->
+            <!-- ko foreach: models -->
+            <li class="catalog_item_file">
+                <!-- ko component: { name: 'file-item-friends', params: {data: $data} }--><!-- /ko -->
+            </li>
+            <!-- /ko -->
+            <!-- /ko -->
+            <!-- /ko -->
+        </ul>
+    </div>
+</li>

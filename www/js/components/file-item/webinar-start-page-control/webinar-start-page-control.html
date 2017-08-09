@@ -1,0 +1,43 @@
+<!-- ko if: $root.uiEvent().player().streamerControlModel().file_id() == $data.id() -->
+<!-- ko if: $root.uiEvent().player().streamerControlModel().statusMedia() === 'MEDIA_RESOLVING' -->
+<div class="news_down_field">
+    <label data-title="Ожидание подтверждения" class="icon_static static_grey">
+        <span class="inside_image wait_member"></span>
+    </label>
+</div>
+<!-- /ko -->
+<!-- ko if: $root.uiEvent().player().streamerControlModel().statusMedia() === 'MEDIA_PLAYING'-->
+<div class="news_down_field">
+    <label data-title="{{fileIsPlayed}}" class="icon_static static_green">
+        <span class="inside_image playbtn_ico"></span>
+    </label>
+</div>
+
+<div class="add_down_field">
+    <button type="button" data-title="{{toStop}}" class="icon_btn btns_blue" data-bind="click: function(model){ $root.uiEvent().player().onStopFileButtonClick(model) } ">
+        <span class="inside_image stopbtn_ico"></span>
+    </button>
+</div>
+<!-- /ko -->
+<!-- ko if: !$root.uiEvent().player().streamerControlModel().statusMedia() === 'MEDIA_PAUSED'-->
+<div class="news_down_field">
+    <label data-title="{{fileIsStopped}}" class="icon_static static_grey">
+        <span class="inside_image pausebtn_ico"></span>
+    </label>
+</div>
+
+<div class="add_down_field">
+    <button type="button" data-title="{{toStop}}" class="icon_btn btns_blue" data-bind="click: function(model){ $root.uiEvent().player().onStopFileButtonClick(model) } ">
+        <span class="inside_image stopbtn_ico"></span>
+    </button>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+<!-- ko if: $root.uiEvent().player().streamerControlModel().file_id() != $data.id() -->
+<div class="add_down_field">
+    <button type="button" data-title="{{playTheFile}}" class="icon_btn btns_blue" data-bind="click: function(model){ $root.uiEvent().player().onStartFileButtonClick(model) } ">
+        <span class="inside_image playbtn_ico"></span>
+    </button>
+</div>
+<!-- /ko -->
+<!-- /ko -->

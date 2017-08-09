@@ -1,0 +1,28 @@
+<div class="library_list">
+
+    <div class="info_point static_format float_left" >
+        <span class="inside_image" data-bind="css: getDocTypeClass(), click: onClickOpenPreview"></span>
+    </div>
+
+    <div class="file_information">
+        <a href="javascript: void 0" ondragstart="return false;"  class="file_name" data-bind="text: title, click: onClickOpenPreview"></a>
+        <p><span>{{owner}}: <a class="file_autor" data-bind="text: ownerName, attr: {'href': hrefToFileOwnerUser() }">{{ownersName}}</a></span></p>
+    </div>
+
+    <!-- ko switch: $data.availableInLibrary()-->
+    <!-- ko case: true -->
+    <div class="req_down_field">
+        <label data-title="{{fileInYourLibrary}}" class="icon_static static_green" >
+            <span class="inside_image success_file"></span>
+        </label>
+    </div>
+    <!-- /ko -->
+    <!-- ko case: false -->
+    <div class="add_down_field">
+        <button type="button" class="icon_btn btns_green" data-title="{{addFileToLibrary}}" data-bind="click: onClickCopyToMyLibrary">
+            <span class="inside_image add_tolibrary"></span>
+        </button>
+    </div>
+    <!-- /ko -->
+    <!-- /ko -->
+</div>

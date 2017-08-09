@@ -1,0 +1,67 @@
+<!-- ko if: loading() === true -->
+<div class="preloader">
+	<span class="preloader_core"></span>
+</div>
+<!-- /ko -->
+
+<!-- ko if: loading() === false -->
+
+<div class="library_list margin_top_20px deleted_item">
+
+	<!-- ko if: !isEnabledProcessTransfer() -->
+	<label for="browse" class="btn btns_blue next_view image_button delay" data-title="{{uploadFileInLibrary}}">
+		{{downloadFile}}
+		<span class="inside_button_image upload_format"></span>
+	</label>
+	<input id="browse" type="file" style="display: none;" multiple/>
+
+	<button data-bind="click: onClickCreateNewFolder" type="button" data-title="{{createFolderTitle}}" class="btn btns_blue image_button delay">
+		{{createFolder}}
+		<span class="inside_button_image folder_format"></span>
+	</button>
+	<!-- /ko -->
+
+	<!-- ko if: isEnabledProcessTransfer() -->
+	<div>
+		<div class="info_point static_grey library_list_position">
+			<span class="inside_image error_format"></span>
+		</div>
+		<div class="list_message">
+			{{replaceSelectedFilesIntoFolderDistination}}
+		</div>
+	</div>
+	<div class="selected_items none">
+		Выбрано обьектов: 3
+		<button type="button" class="small_close_btn">x</button>
+	</div>
+
+
+	<!-- /ko -->
+	<div id="js_drag_item" class=" drag_item none">
+		<span>3</span>
+	</div>
+</div>
+
+<div class="catalog-tree__b-mask" data-bind="click: onClickEmptyBesideZone ">
+	<!-- this place for click and reset selected items in library -->
+</div>
+
+<!-- ko if: noItems() -->
+<div class="box_message">
+	<div class="info_point static_grey">
+		<span class="inside_image error_format"></span>
+	</div>
+	<div class="separate_message">{{yourLibraryIsEmpty}}</div>
+</div>
+<!-- /ko -->
+
+<!-- ko ifnot: noItems() -->
+<ul class="main_file_list" data-bind="css: { 'hide_all_files_effect_js' : isEnabledProcessTransfer() } ">
+	<!-- ko with: rootFolder() -->
+	<!-- ko component: { name: 'folder-item', params: { route: $root.route, data: $data } }--><!-- /ko -->
+	<!-- /ko -->
+</ul>
+<!-- /ko -->
+
+
+<!-- /ko -->

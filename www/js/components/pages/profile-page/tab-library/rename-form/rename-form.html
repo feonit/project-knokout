@@ -1,0 +1,16 @@
+<!-- ko with: $parent -->
+<div class="float_right">
+    <button type="button" class="icon_btn btns_red top_aligns" data-title="{{cancel}}" data-bind="click: onClickResetRenameForm" >
+        <span class="inside_image delete_btn"></span>
+    </button>
+    <button type="button" class="icon_btn btns_green top_aligns" data-title="{{save}}" data-bind="click: onClickSaveTitle" >
+        <span class="inside_image success_file"></span>
+    </button>
+</div>
+<div class="input_field resine_block">
+    <input onClick="this.select();" type="text" class="regular_input auto_width top_align" data-bind="
+            hasFocus: renamed(),
+            event: { blur: onblur },
+            value: newTitle, valueUpdate: 'afterkeydown', validate: newTitle, enterKey: onEnterKey, escKey: resetRenameForm, click: onClickTextField" />
+</div>
+<!-- /ko -->

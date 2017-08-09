@@ -1,0 +1,388 @@
+<!-- ko with: app -->
+
+<div class="login_stable">
+	<div class="center_block">
+		<div class="head_logo">
+			<div class="float_right regular_select_field">
+				<!-- ko with: $root.languages-->
+				<select class="med_select" data-bind="
+													options: availableCountries,
+													optionsText: 'countryName',
+													value: selectedCountry(),
+													optionsValue: 'alpha2'"></select>
+				<!-- /ko -->
+			</div>
+			<!-- ko if: application.USER_DATA.userLanguage === 'en'-->
+			<a class="login_main_logo logo_english" href="#"></a>
+			<!-- /ko -->
+			<!-- ko if: application.USER_DATA.userLanguage === 'ru'-->
+			<a class="login_main_logo logo_russian" href="#"></a>
+			<!-- /ko -->
+		</div>
+
+		<!-- ko with: $root.loginViewModel -->
+		<!-- ko if: loginStep() === 'general' -->
+			<div class="main_menu" id="login_tabs" data-bind="renderTabs: {
+			template: '_tabs-template',
+			hashEnabled: false,
+			tabs: [ {'tabTitle': '{{login}}'},
+			        {'tabTitle': '{{rememberPassword}}'},
+			        {'tabTitle': '{{registration}}'}]
+			}"></div>
+			<div class="third_main_parent menu_switcher">
+
+				<!-- tab 1 login -->
+				<div class="login_form menu_step_blck">
+					<form id="log_in_form" action="/module/user/auth/go" method="POST">
+						<div class="input_container">
+							<div class="inp_main_block align_center">
+								<div class="input_holder">
+									<label class="input_label">{{email}}</label>
+									<div class="input_field">
+										<input class="regular_input email_inp log_in_email" name="User[email]" type="text" />
+										<div class="error_field">
+											<span class="arrow_err" ></span>
+											<span id="email_log" class="error_txt_span"></span>
+										</div>
+										<div class="err_note_img"></div>
+									</div>
+								</div>
+								<div class="input_holder">
+									<label class="input_label">{{password}}</label>
+									<div class="input_field">
+										<input class="regular_input simple_field log_pass_in password_in_email" name="User[password]" type="password" />
+										<div class="error_field error_pass_log">
+											<span class="arrow_err" ></span>
+											<span id="password_log" class="error_txt_span"></span>
+										</div>
+										<div class="err_note_img"></div>
+									</div>
+								</div>
+								<div class="input_holder">
+									<div class="line_button_block">
+										<button id="log_in" class="btn btns_blue" type="button">
+											{{enter}}
+											<div class="btn_preloader_mask">
+													<div class="preloader btn_preloader">
+														<span class="preloader_core"></span>
+													</div>
+												</div>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<!-- tab 2 remind -->
+				<div class="menu_step_blck">
+					<div class="regiser_step">
+						<form id="restore_form" method="POST" onsubmit="return false;">
+							<div class="box_message half_margin">
+								<div class="info_point static_grey">
+									<span class="inside_image error_format"></span>
+								</div>
+								<div class="separate_message">{{confirmEmailAddress}}</div>
+							</div>
+							<div class="input_container">
+								<div class="inp_main_block restore_block">
+									<div class="input_holder float_left">
+										<label class="input_label">{{email}}</label>
+										<div class="input_field">
+											<input class="regular_input email_inp restore_email input_width300px" type="text" name="User[email]" />
+											<div class="error_field">
+												<span class="arrow_err" ></span>
+												<span class="error_txt_span"></span>
+											</div>
+											<div class="err_note_img"></div>
+										</div>
+									</div>
+									<div class="input_holder float_right">
+										<div class="line_button_block">
+											<button id="restore_password" class="btn btns_blue log_in_request" type="button" >
+												{{sendPassword}}
+												<div class="btn_preloader_mask">
+													<div class="preloader btn_preloader">
+														<span class="preloader_core"></span>
+													</div>
+												</div>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<div class="regiser_step none">
+						<div class="box_message">
+							<div class="info_point static_grey">
+								<span class="inside_image success_file"></span>
+							</div>
+							<div class="separate_message">{{confirmEmailAddress}}</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- tab 3 register -->
+				<div class="menu_step_blck">
+					<div class="regiser_step">
+						<div class="main_menu">
+							<div class="sub_menu_item">{{personalData}}</div>
+						</div>
+						<form id="register_form" autocomplete="off">
+							<!-- ========================================== -->
+							<div class="input_container">
+								<div class="inp_main_block">
+									<div class="input_holder">
+										<label class="input_label">{{surname}}</label>
+										<div class="input_field">
+											<input class="regular_input simple_field reg_fname" type="text" name="User[family]" />
+											<div class="error_field">
+												<span class="arrow_err" ></span>
+												<span class="error_txt_span"></span>
+											</div>
+											<div class="err_note_img"></div>
+										</div>
+									</div>
+									<div class="input_holder">
+										<label class="input_label">{{name}}</label>
+										<div class="input_field">
+											<input class="regular_input simple_field reg_lname" type="text" name="User[name]" />
+											<div class="error_field">
+												<span class="arrow_err" ></span>
+												<span class="error_txt_span"></span>
+											</div>
+											<div class="err_note_img"></div>
+										</div>
+									</div>
+									<div class="input_holder">
+										<label class="input_label">{{middleName}}</label>
+										<div class="input_field">
+											<input class="regular_input simple_field reg_mname" type="text" name="User[patronymic]" />
+											<div class="error_field">
+												<span class="arrow_err" ></span>
+												<span class="error_txt_span"></span>
+											</div>
+											<div class="err_note_img"></div>
+										</div>
+									</div>
+								</div>
+								<div class="inp_main_block">
+									<div class="input_holder">
+										<label class="input_label">{{country}}</label>
+										<div class="input_field">
+											<input class="country_hidden" type="hidden" name="User[country_id]" />
+											<input autocomplete="off" readonly="readonly" class="regular_input cursor_point semi_drop reg_country" type="text" />
+											<div class="error_field">
+												<span class="arrow_err" ></span>
+												<span class="error_txt_span"></span>
+											</div>
+											<div class="err_note_img blue_arrow_bm"></div>
+											<div id="country_ls" class="country_list"></div>
+										</div>
+									</div>
+									<div class="input_holder">
+										<label class="input_label">{{city}}</label>
+										<div class="input_field">
+											<input class="city_hidden" type="hidden" name="User[city_id]" />
+											<input autocomplete="off" readonly="readonly" class="regular_input cursor_point semi_drop dis_sep_input reg_city" type="text" />
+											<div class="error_field">
+												<span class="arrow_err" ></span>
+												<span class="error_txt_span"></span>
+											</div>
+											<div class="err_note_img blue_arrow_bm"></div>
+											<div id="city_ls" class="country_list"></div>
+										</div>
+									</div>
+								</div>
+								<div class="inp_main_block">
+									<div class="input_holder">
+										<label class="input_label">{{medicalInstitution}}</label>
+										<div class="input_field">
+											<input class="organization_hidden" type="hidden" name="User[organization_id]" />
+											<input autocomplete="off" readonly="readonly" class="regular_input cursor_point semi_drop dis_sep_input reg_organization" type="text" />
+											<div class="error_field">
+												<span class="arrow_err"></span>
+												<span class="error_txt_span"></span>
+											</div>
+											<div class="err_note_img blue_arrow_bm"></div>
+											<div id="organization_ls" class="country_list"></div>
+										</div>
+									</div>
+									<div class="input_holder">
+										<label class="input_label">{{positionHeld}}</label>
+										<div class="input_field">
+											<input class="position_hidden" type="hidden" name="User[position_id]" />
+											<input autocomplete="off" readonly="readonly" class="regular_input cursor_point semi_drop dis_sep_input reg_position " type="text"  />
+											<div class="error_field">
+												<span class="arrow_err"></span>
+												<span class="error_txt_span"></span>
+											</div>
+											<div class="err_note_img blue_arrow_bm"></div>
+											<div id="position_ls" class="country_list"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- ========================================== -->
+							<div class="main_menu">
+								<div class="sub_menu_item">{{registrationData}}</div>
+							</div>
+							<!-- ========================================== -->
+							<div class="input_container">
+								<div class="inp_main_block">
+									<div class="input_holder">
+										<label class="input_label">{{email}}</label>
+										<div class="input_field">
+											<input class="regular_input email_inp reg_email" type="text" name="User[email]" />
+											<div class="error_field">
+												<span class="arrow_err" ></span>
+												<span class="error_txt_span"></span>
+											</div>
+											<div class="err_note_img"></div>
+										</div>
+									</div>
+									<div class="input_holder">
+										<label class="input_label">{{password}}</label>
+										<div class="input_field">
+											<input class="regular_input simple_field password_inp reg_password" type="password" name="User[password]" />
+											<div class="error_field">
+												<span class="arrow_err" ></span>
+												<span class="error_txt_span"></span>
+											</div>
+											<div class="err_note_img"></div>
+										</div>
+									</div>
+									<div class="input_holder">
+										<label class="input_label">{{confirmPassword}}</label>
+										<div class="input_field">
+											<input class="regular_input simple_field passwordre_inp reg_confirmPassword" type="password" name="User[confirmPassword]" />
+											<div class="error_field">
+												<span class="arrow_err" ></span>
+												<span class="error_txt_span"></span>
+											</div>
+											<div class="err_note_img"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- ========================================== -->
+							<div class="buttons_container">
+								<div class="float_left button_text_container two_stroke">
+									{{privatePolicy}} <br />
+									{{inProgress}}
+								</div>
+								<div class="float_right">
+									<button id="register_user" class="btn btns_blue finish_registration" type="button" >
+										{{completeRegistration}}
+										<div class="btn_preloader_mask">
+											<div class="preloader btn_preloader">
+												<span class="preloader_core"></span>
+											</div>
+										</div>
+									</button>
+								</div>
+							</div>
+						</form>
+
+					</div>
+
+					<div class="regiser_step none">
+						<div class="box_message">
+							<div class="info_point static_grey">
+								<span class="inside_image success_file"></span>
+							</div>
+							<div class="separate_message">{{thanksForRegistration}}!</div>
+							<div class="separate_message">{{postLetterWithActivation}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- /ko -->
+
+		<!-- ko if: loginStep() === 'after_activation' -->
+		<div class="box_message">
+			<div class="info_point static_grey">
+				<span class="inside_image success_file"></span>
+			</div>
+			<div class="separate_message">
+				<p>{{dearUser}} <!--ko text: window.appConfig.controller.user.name --><!--/ko--> <!--ko text: window.appConfig.controller.user.family --><!--/ko-->, {{successActivation}}.</p>
+				<p>{{youWillBeRedirectAfter}} <span class="restore_pass_counter">3</span>..</p>
+			</div>
+		</div>
+		<!-- /ko -->
+
+		<!-- ko if: loginStep() === 'after_change_email' -->
+		<div class="box_message">
+			<div class="info_point static_grey">
+				<span class="inside_image success_file"></span>
+			</div>
+			<div class="separate_message">
+				<p>{{messageAfterChangeEmail}}</p>
+				<a href="/">{{enterSystem}}</a>
+			</div>
+		</div>
+		<!-- /ko -->
+
+		<!-- ko if: loginStep() === 'after_rememer_password' -->
+		<div class="main_menu" id="change_password_tabs" data-bind="renderTabs: {
+			template: '_tabs-template',
+			hashEnabled: false,
+			tabs: [ {'tabTitle': '{{changePassword}}'}]
+			}"></div>
+		<div class="login_form" data-bind="with: $root.user">
+			<form id="finish_restore_form" method="POST" class="ajax-form" data-bind="submit: updatePasswordRequest">
+				<div class="regiser_step restore_password align_center">
+					<div class="inp_main_block align_center">
+						<div class="input_holder">
+							<label class="input_label">{{newPassword}}</label>
+							<div class="input_field">
+								<input class="regular_input password_inp reg_password" type="password" data-bind="validate: password, value: password" name="User[password]"/>
+								<div class="error_field">
+									<span class="arrow_err" ></span>
+									<span id="email_log" class="error_txt_span"></span>
+								</div>
+								<div class="err_note_img"></div>
+							</div>
+						</div>
+						<div class="input_holder">
+							<label class="input_label">{{confirmPassword}}</label>
+							<div class="input_field">
+								<input class="regular_input passwordre_inp reg_confirmPassword" type="password" data-bind="validate: confirmPassword, value: confirmPassword" name="User[confirmPassword]"/>
+								<div class="error_field">
+									<span class="arrow_err" ></span>
+									<span id="email_log" class="error_txt_span"></span>
+								</div>
+								<div class="err_note_img"></div>
+							</div>
+						</div>
+						<div class="input_holder">
+							<div class="line_button_block">
+								<input class="btn btns_blue restore_btn" id="finish_restore_password" type="submit" value="{{save}}" />
+								<div class="preloader_small none"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="regiser_step restore_success none">
+					<div class="box_message">
+						<div class="info_point static_grey btn_success_img">
+							<span class="inside_image success_file"></span>
+						</div>
+						<div class="separate_message">{{endChangePassword}}</div>
+						<div class="separate_message">
+							<a href="/">{{enterOnSite}}</a>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- /ko -->
+
+		<!-- /ko -->
+
+	</div>
+</div>
+<!-- /ko -->

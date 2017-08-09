@@ -1,0 +1,13 @@
+<!-- контрол поиска -->
+<div data-bind="component: { name: 'control-search', params: {
+    componentName: uiSearchControl,
+    placeholder: '{{searchAmongColleagues}}',
+    onLoad: function(){alert('onLoadCallback')}
+}}">
+</div>
+
+<div data-bind="component: { name: 'colleagues-list', params: {
+    componentName: uiColleaguesList,
+    route: $root.route
+}}"></div>
+

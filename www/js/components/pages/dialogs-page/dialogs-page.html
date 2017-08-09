@@ -1,0 +1,50 @@
+<!-- ko with: $root -->
+<h1>{{messages}}</h1>
+<div class="main_menu" id="message_taps" data-bind="renderTabs: {
+	template: '_tabs-template',
+	hashEnabled: false,
+	tabs: [
+	{'tabTitle': '{{dialogs}}', counterEval: 'application.root().dialogs() == \'\' ? 0 : application.root().dialogs().unreadCount()'},
+	{'tabTitle': '{{newMessage}}'}] }">
+</div>
+<div class="menu_switcher" >
+	<div data-bind="with: dialogs()" class="menu_step_blck" id="dialogs_list">
+		<!-- ko switch: loading() -->
+			<!-- ko case: true -->
+				<div class="preloader">
+					<span class="preloader_core"></span>
+				</div>
+			<!-- /ko -->
+			<!-- ko case: false-->
+				<div class="second_main_parent">
+					<!-- ko if: dialogs().length == 0 -->
+					<div class="box_message">
+						<div class="info_point static_grey">
+							<span class="inside_image error_format"></span>
+						</div>
+						<div class="separate_message">{{yourMessagesIsEmpty}}</div>
+					</div>
+					<!-- /ko -->
+					<div class="dialogue_message margin_top_20px" data-bind="foreach: dialogs()">
+						<div class="dialogue_selector" data-bind="css: ($data.read()?'':'new_message')" >
+
+							<div data-bind="component: { name: 'user-badge', params: { user: author } }"></div>
+
+							<div class="dialogue_text round_right" data-bind="click: $data.openDialog">
+								<span class="time_eff_chat" data-bind="text: $data.last_update">сегодня, 00:00</span>
+								<div class="dialogue_message_block" data-bind="text: $data.last_message"></div>
+								<span class="arrow_eff"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /ko -->
+			<!-- /ko -->
+	</div>
+	<div class="menu_step_blck" id="new_dialog">
+
+		<div data-bind="component: { name: 'tab-new-message', params: { componentName: 'componentTabNewMessage' } }"></div>
+
+	</div>
+</div>
+<!-- /ko -->

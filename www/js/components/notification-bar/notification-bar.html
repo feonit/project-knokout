@@ -1,0 +1,74 @@
+<!-- ko foreach: groups() -->
+<!-- ko if: $parent.byGroup($data).length == 1 -->
+<div class="event_message slow_message" data-bind="attr:{'id':$parent.byGroup($data)[0].divId}">
+    <div class="message_inside_container">
+		<span class="mess_icon float_left" data-bind="css: $parent.byGroup($data)[0].color">
+			<span class="inside_image" data-bind="css: $parent.byGroup($data)[0].icon"></span>
+		</span>
+        <div class="float_right mess_right_btns">
+            <!-- ko if: $parent.byGroup($data)[0].confirm -->
+            <span class="response_btn delete_response" data-bind="click: function () { $parent.cancelButton($parent.byGroup($data)[0])}"></span>
+            <span class="response_btn accept_response" data-bind="click: function () { $parent.okButton($parent.byGroup($data)[0]) }"></span>
+            <!-- /ko -->
+            <!-- ko if: !$parent.byGroup($data)[0].confirm -->
+            <span class="response_btn delete_response" data-bind="click: function () { $parent.cancelButton($parent.byGroup($data)[0]) }"></span>
+            <!-- /ko -->
+        </div>
+        <div class="message_text" data-bind="html: $parent.byGroup($data)[0].message"></div>
+    </div>
+</div>
+<!-- /ko -->
+
+<!-- ko if: $parent.byGroup($data).length > 1 -->
+<div class="event_message grouped_items">
+    <div class="message_inside_container">
+		<span class="mess_icon float_left group-alerts" data-bind="css: $parent.byGroup($data)[0].color">
+			<span class="inside_image" data-bind="css: $parent.byGroup($data)[0].icon"></span>
+		</span>
+        <div class="float_right mess_right_btns">
+            <span id="switch_collapse" class="response_btn collapse_response" data-bind="click: $parent.arrowClick"></span>
+        </div>
+        <div class="message_text">
+            <!-- ko text: $parent.byGroup($data).length --><!-- /ko --> {{newEvents}}
+        </div>
+    </div>
+</div>
+
+<div class="group_event" data-bind="foreach: $parent.byGroup($data)">
+    <!-- ko if: $index() <= 4 -->
+    <div class="event_message slow_message">
+        <div class="message_inside_container">
+			<span class="mess_icon float_left" data-bind="css: $data.color">
+				<span class="inside_image"  data-bind="css: $data.icon"></span>
+			</span>
+            <div class="float_right mess_right_btns">
+                <!-- ko if: $data.confirm -->
+                <span class="response_btn delete_response" data-bind="click: $parents[1].cancelButton"></span>
+                <span class="response_btn accept_response" data-bind="click: $parents[1].okButton"></span>
+                <!-- /ko -->
+                <!-- ko if: !$data.confirm -->
+                <span class="response_btn delete_response" data-bind="click: $parents[1].cancelButton"></span>
+                <!-- /ko -->
+            </div>
+            <div class="message_text" data-bind="html: $data.message"></div>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if: !$.isEmptyObject(fastNotification()) -->
+<div class="event_message fast_message" data-bind="attr:{'id':fastNotification().divId}">
+    <div class="message_inside_container" data-bind="event: { mouseover: function (model) { model.notifictionHideTimer(false); }, mouseout: function (model) { model.notifictionHideTimer(true);  } }">
+		<span class="mess_icon float_left" data-bind="css: fastNotification().color">
+			<span class="inside_image"  data-bind="css: fastNotification().icon"></span>
+		</span>
+        <div class="float_right mess_right_btns">
+            <span class="response_btn delete_response" data-bind="click: hideFastNotification"></span>
+        </div>
+
+        <div class="message_text" data-bind="html: fastNotification().message"></div>
+    </div>
+</div>
+<!-- /ko -->

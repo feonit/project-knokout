@@ -1,0 +1,108 @@
+<script type="text/html" id="user-item-template">
+    <!-- ko foreach: models-->
+    <div class="library_list">
+        <div data-bind="component: { name: 'user-badge', params: { user: $data } }"></div>
+
+        <div class="follower_info">
+            <!-- ko if: !sendInvite() && confirmed() -->
+				<span class="foll_infospan padding_top_small">
+				  {{wantsToBeYourColleague}}
+				</span>
+            <!-- /ko -->
+            <!-- ko if: sendInvite() && !confirmed() -->
+				<span class="foll_infospan padding_top_small">
+				  {{invitationWaitConfirmation}}
+				</span>
+            <!-- /ko -->
+            <!-- ko if: confirmed() && sendInvite() -->
+				<span class="foll_infospan">
+				  <!-- ko text: position --><!-- /ko --><br />
+				  <!-- ko text: address --><!-- /ko -->
+				</span>
+            <!-- /ko -->
+            <!-- ko if: !confirmed() && !sendInvite() -->
+				<span class="foll_infospan">
+				  <!-- ko text: position --><!-- /ko --><br />
+				  <!-- ko text: address --><!-- /ko -->
+				</span>
+            <!-- /ko -->
+        </div>
+        <!-- ko if: !sendInvite() || !confirmed() -->
+        <!-- ko if: !sendInvite() && confirmed() -->
+        <div class="news_down_field">
+            <button type="button" class="icon_btn btns_red" data-bind="click: unsubscribe">
+                <span class="inside_image delete_btn"></span>
+            </button>
+            <button type="button" class="icon_btn btns_green" data-bind="click: subscribe">
+                <span class="inside_image success_file"></span>
+            </button>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: sendInvite() && !confirmed() -->
+        <div class="news_down_field">
+			<span class="icon_static static_orange">
+				<span class="inside_image wait_member"></span>
+			</span>
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+</script>
+
+<!-- ko with: usersCollection() -->
+
+<!-- ko switch: loading() -->
+<!-- ko case: true -->
+<div class="preloader">
+    <span class="preloader_core"></span>
+</div>
+<!-- /ko -->
+<!-- ko case: false-->
+<!-- ko if: loaded() -->
+<!-- ko if: models().length == 0 -->
+<!-- ko if: initSearch() -->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image colleagues_format"></span>
+    </div>
+    <div class="separate_message">{{yourSearchEmpty}}</div>
+</div>
+<!-- /ko -->
+<!-- ko if: !initSearch() -->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image colleagues_format"></span>
+    </div>
+    <div class="separate_message">{{listColleaguesEmpty}}</div>
+    <div class="separate_message">{{use}} <a href="#" data-bind="click: $root.search().openSearch"> {{theSearch}} </a>{{forSearch}}</div>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+
+
+<!-- ko if: initSearch() -->
+<!-- ko if: where({ search_type : 'user' }).length > 0 -->
+<div class="group_name_txt">{{groupOfMyUsers}}</div>
+<div data-bind="template: { name: 'user-item-template', data: { models : where({ search_type : 'user' }) } }"></div>
+<!-- /ko -->
+<!-- ko if: where({ search_type : 'global' }).length > 0 -->
+<div class="group_name_txt">{{groupOfOtherUsers}}</div>
+<div data-bind="template: { name: 'user-item-template', data: { models : where({ search_type : 'global' }) } }"></div>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if: !initSearch() -->
+<div data-bind="template: { name: 'user-item-template', data: { models : models } }"></div>
+<!-- /ko -->
+
+<!-- ko if: uploading() -->
+<div class="preloader">
+    <span class="preloader_core"></span>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- /ko -->

@@ -1,0 +1,55 @@
+<div class="popUp_Window " data-bind="
+
+	with: $root.userSettings,
+	css: $root.userSettings().applicantForChange().attrName === 'LIBRARY_ACCESS_LEVEL'? 'update_access_settings' : 'update_access_webinar'">
+	
+	<div class="text_field_cent">
+		<div class="popup_notification_block">
+			<div class="popup_icon_block float_left library_restriction_icon"></div>
+			<div class="popup_text_notification">
+				<!-- ko if: $data.applicantForChange().attrName === 'LIBRARY_ACCESS_LEVEL' -->
+					{{yourLibraryWillBeAvailable}}
+						<!-- ko switch: LIBRARY_ACCESS_LEVEL -->
+							<!-- ko case: 'private'-->
+							{{onlyYou}}
+							<!-- /ko -->
+							<!-- ko case: 'protected'-->
+							{{onlyColleagues}}
+							<!-- /ko -->
+							<!-- ko case: 'public'-->
+							{{toAll}}
+							<!-- /ko -->
+						<!-- /ko -->
+					<!-- /ko -->
+
+					<!-- ko if: $data.applicantForChange().attrName === 'WEBINAR_ACCESS_LEVEL' -->
+					{{yourWebinarsWillBeAvailable}}
+						<!-- ko switch: WEBINAR_ACCESS_LEVEL -->
+							<!-- ko case: 'private'-->
+							{{onlyYou}}
+							<!-- /ko -->
+							<!-- ko case: 'protected'-->
+							{{onlyColleagues}}
+							<!-- /ko -->
+							<!-- ko case: 'public'-->
+							{{toAll}}
+							<!-- /ko -->
+						<!-- /ko -->
+					<!-- /ko -->
+			</div>
+		</div>
+		<div class="buttons_container">
+			<div class="float_left button_text_container">
+				{{areYouSure}}
+			</div>
+			<div class="float_right">
+				<button type="button" class="icon_btn btns_red modal_button_cancel" data-bind="click: dropApplicant">
+				<span class="inside_image delete_btn"></span>
+				</button>
+				<button type="button" class="icon_btn btns_green modal_button_ok" data-bind="click: saveApplicant">
+					<span class="inside_image success_file"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

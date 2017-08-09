@@ -1,0 +1,59 @@
+<!-- ko with: $root.eventModel -->
+<!-- ko if: fileList().length == 0 -->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image error_format"></span>
+    </div>
+    <div class="separate_message">{{noMaterial}}</div>
+</div>
+<!-- /ko -->
+<!-- ko if: fileList().length > 0  -->
+<!-- ko foreach: fileList-->
+<div class="library_list">
+    <div class="info_point static_format float_left" >
+        <span class="inside_image" data-bind="click: onClickOpenPreview, css: $data.getDocTypeClass()"></span>
+    </div>
+    <div class="file_information">
+        <!-- ko if: $data.hasError() == 0 -->
+        <!-- ko if: $data.renamed() == true -->
+        <div class="input_field">
+            <input type="text" class="regular_input biggest_width top_align" data-bind="value: $data.newTitle, valueUpdate: 'afterkeydown', validate: $data.newTitle, enterKey: saveTitle, escKey: resetRenameForm" />
+        </div>
+        <button type="button" class="icon_btn btns_red top_aligns" data-bind="click: onClickResetRenameForm" data-title="{{cancel}}" >
+            <span class="inside_image delete_btn"></span>
+        </button>
+        <button type="button" class="icon_btn btns_green top_aligns" data-bind="click: onClickSaveTitle" data-title="{{save}}" >
+            <span class="inside_image success_file"></span>
+        </button>
+        <!-- /ko -->
+        <!-- ko if: $data.renamed() == false -->
+        <!-- ko if: $data.progress() == 100 && $data.uploaded() == false -->
+        <a class="file_name" data-bind="text: $data.title, click: onClickOpenPreview">{{title}}</a>
+        <!-- /ko -->
+        <!-- ko if: $data.progress() < 100 || $data.uploaded() == true -->
+        <p data-bind="text: $data.title">{{title}}</p>
+        <!-- /ko -->
+        <!-- ko if: $data.progress() == 100 && $data.uploaded() == false -->
+        <span>{{owner}}: <a class="file_autor" data-bind="text: $data.ownerName, attr: {'href':'/module/user/profile/view/'+$data.ownerId()}">{{nameAuthor}}</a></span>
+        <!-- /ko -->
+        <!-- ko if: $data.availableInLibrary() == true -->
+        <div class="req_down_field">
+            <label data-title="{{fileInYourLibrary}}" class="icon_static static_green" >
+                <span class="inside_image success_file"></span>
+            </label>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: $data.availableInLibrary() == false -->
+        <div class="add_down_field">
+            <button type="button" class="icon_btn btns_green" data-title="{{addFileToLibrary}}" data-bind="click: onClickCopyToMyLibrary">
+                <span class="inside_image add_tolibrary"></span>
+            </button>
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- /ko -->
+    </div>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->

@@ -1,0 +1,40 @@
+<div class="float_left" data-bind="css: {
+    online_status: user().online(),
+    offline_status: !user().online(),
+    profile_block: (user().id() != window.appConfig.auth.user.info.id) && user().id(),
+    profile_block_user: (user().id() == window.appConfig.auth.user.info.id) || ( !user().id() )
+}">
+    <a data-bind="attr: {'href': getHref() }">
+        <img border="0" class="user_img float_left" data-bind="attr: { 'src': user().small_avatar_full_path }" alt="avatar">
+    </a>
+    <div class="relate_container">
+        <div class="user_name"><!-- ko text: user().name() --><!-- /ko --><br><!-- ko text: user().family() --><!-- /ko --></div>
+        <!-- ko if: user().id() && (user().id() != $root.currentUser().id()) -->
+        <div class="user_prof_btns">
+            <a data-title="{{userProfile}}" data-bind="attr: {'href':'/module/user/profile/view/' + user().id()}">
+                <span class="bage_inside_img prof_userpr"></span>
+            </a>
+            <a data-title="{{writeMessage}}" data-bind="click: user().openDialog">
+                <span class="bage_inside_img prof_usermes"></span>
+            </a>
+            <!-- ko if: user().sendInvite() == false -->
+            <a data-bind="click: user().subscribe" data-title="{{subscribeToUser}}">
+                <span class="bage_inside_img prof_useradd"></span>
+            </a>
+            <!-- /ko -->
+            <!-- ko if: user().sendInvite() == true -->
+            <!-- ko if: user().confirmed() == true -->
+            <a data-bind="click: user().unsubscribeConfirm.bind(user())" data-title="{{removeFromColleagues}}">
+                <span class="bage_inside_img prof_userdelete"></span>
+            </a>
+            <!-- /ko -->
+            <!-- ko if: user().confirmed() == false -->
+            <a data-title="{{youHaveSentRequest}}">
+                <span class="bage_inside_img prof_userdelete_disabled"></span>
+            </a>
+            <!-- /ko -->
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+    </div>
+</div>

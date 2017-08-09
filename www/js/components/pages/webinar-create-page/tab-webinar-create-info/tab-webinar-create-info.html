@@ -1,0 +1,69 @@
+<!-- ko with: $root.eventModel() -->
+<div class="input_container">
+    <label class="input_label">{{titleName}}</label>
+    <div class="input_field">
+        <input type="text" class="regular_input text_field_width" data-bind='validate: title, value: title, valueUpdate: "afterkeydown"' />
+    </div>
+    <label class="input_label">{{description}}</label>
+    <div class="input_field">
+        <textarea class="regular_input text_field_width" data-bind="value: description"></textarea>
+    </div>
+</div>
+<div class="input_container">
+    <div class="inp_main_block">
+        <div class="input_holder">
+            <label class="input_label">{{privacy}}</label>
+            <div class="regular_select_field">
+                <select class="huge_select user_profile_option" data-bind="
+                                selectControlBinding: is_public,
+								options: [ { text: '{{public}}', value: true}, {text: '{{private}}', value: false}],
+								optionsText: 'text',
+								optionsValue: 'value',
+								value: is_public
+							"></select>
+            </div>
+        </div>
+        <div class="input_holder float_right">
+            <label class="input_label">{{type}}</label>
+            <div class="regular_select_field float_left">
+                <select class="huge_select user_profile_option" data-bind="
+                                selectControlBinding: isExpress,
+								options: [ {text: '{{immediate}}', value: true}, { text: '{{planned}}', value: false}],
+								optionsText: 'text',
+								optionsValue: 'value',
+								value: isExpress
+							"></select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="input_container">
+    <div class="inp_main_block">
+        <label class="input_label">{{dateOfRealization}}</label>
+        <input id="dateCreatePick" type="hidden" />
+
+        <DIV data-bind="component: { name: 'control-date-selector', params: { webinarModel: $data, disable: isExpress } } "></DIV>
+
+        <div class="record_stream_field float_left">
+            <input id="record_stream" class="none" type="checkbox" value="1" data-bind="checked: enableRecord"/>
+            <label for="record_stream" class="checkbox_style mid_align">{{recordEther}}</label>
+        </div>
+    </div>
+</div>
+<div class="input_container">
+    <div class="inp_main_block align_center">
+        <div class="input_holder float_left">
+            <label class="input_label">{{theStartTime}}</label>
+            <DIV data-bind="component: { name: 'control-time', params: { observableAttribute: startTime, disable: isExpress } } "></DIV>
+        </div>
+        <div class="input_holder ">
+            <label class="input_label">{{theTimeEnd}}</label>
+            <DIV data-bind="component: { name: 'control-time', params: { observableAttribute: endTime } } "></DIV>
+        </div>
+        <div class="input_holder float_right">
+            <label class="input_label">{{theDuration}}</label>
+            <DIV data-bind="component: { name: 'control-time', params: { observableAttribute: duration } } "></DIV>
+        </div>
+    </div>
+</div>
+<!-- /ko -->

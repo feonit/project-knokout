@@ -1,0 +1,68 @@
+<div class="popUp_Window confirm_creation" data-bind="with: $root.eventModel">
+	<div class="pop_up_container">
+			<h2 data-bind='text: title'></h2>
+			<!-- ko if: description() != '' -->
+			<div class="inside_sml_block">
+				<p class="font_default" data-bind="text: description"></p>
+			</div>
+			<!-- /ko -->
+			<div class="web_info_user margin_bottom_60px margin_top_20px">
+				<div data-bind="component: { name: 'user-badge', params: { user: $root.currentUser() } }"></div>
+
+				<div class="float_left webinar_status planed_inf">{{expected}}</div>
+			</div>
+			<div class="confirm_creation_status confirm_popup">
+				<div class="more_inf_web">
+					<img src="/images/webinar_date_ico.png" alt="" />
+					<div class="web_img_text mid_align" ><!-- ko text: formattedCreateDate() --><!-- /ko --></div>
+				</div>
+				<div class="more_inf_web">
+					<img src="/images/webinar_time_ico.png" alt="" />
+					<div class="web_img_text mid_align"><!-- ko text: convertCountOfMinutesToHHMMFn(startTime()) --><!-- /ko --> - <!-- ko text: convertCountOfMinutesToHHMMFn(endTime()) --><!-- /ko --></div>
+				</div>
+				<div class="more_inf_web">
+					<img src="/images/webinar_lenght_ico.png" alt="" />
+					<div class="web_img_text mid_align" data-bind="text: convertCountOfMinutesToHHMMFn(duration())">0</div>
+				</div>
+				<div class="more_inf_web">
+					<!-- ko if: is_public() -->
+					<img alt="" src="/images/webinar_type_ico_public.png">
+					<div class="web_img_text mid_align">{{public}}</div>
+					<!-- /ko-->
+					<!-- ko if: !is_public() -->
+					<img alt="" src="/images/webinar_type_ico_private.png">
+					<div class="web_img_text mid_align">{{private}}</div>
+					<!-- /ko-->
+				</div>
+				<div class="more_inf_web">
+					<img alt="" src="/images/webinar_people_ico.png">
+					<div class="web_img_text mid_align">{{countOfUsers}} <!-- ko text: participantsCollection().selectedUsers().length --><!--/ko --></div>
+				</div>
+				<div class="more_inf_web" data-bind="visible: $data.timeline().length !== 0 ">
+					<img alt="" src="/images/webinar_timeline_ico.png">
+					<div class="web_img_text mid_align">{{timeline}}</div>
+				</div>
+			</div>
+			<div class="warning_note planed_webinar_warn">
+				{{createScheduledWebinar}}
+			</div>
+		<div class="buttons_container middle_button_width">
+			<div class="float_left button_text_container">
+				<!-- ko if: editMode() -->
+				{{saveChanges}}
+				<!-- /ko -->
+				<!-- ko ifnot: editMode() -->
+				{{createWebinar}}
+				<!-- /ko -->
+			</div>
+			<div class="float_right">
+				<button type="button" class="icon_btn btns_red modal_button_cancel">
+					<span class="inside_image delete_btn"></span>
+				</button>
+				<button type="button" class="icon_btn modal_button_ok" data-bind="click: save, css: !isCreateProcess()?'btns_green':'disabled_btn'">
+					<span class="inside_image success_file"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

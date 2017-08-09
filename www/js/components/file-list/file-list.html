@@ -1,0 +1,68 @@
+<!-- ko with: filesCollection() -->
+<!-- ko switch: loading() -->
+<!-- ko case: true -->
+<div class="preloader">
+	<span class="preloader_core"></span>
+</div>
+<!-- /ko -->
+<!-- ko case: false-->
+<!-- ko if: loaded() -->
+<div class="menu_switcher">
+	<div class="menu_step_blck">
+
+		<!-- ko if: models().length == 0 -->
+		<!-- ko if: initSearch() -->
+		<div class="box_message">
+			<div class="info_point static_grey">
+				<span class="inside_image error_format"></span>
+			</div>
+			<div class="separate_message">{{yourSearchEmpty}}</div>
+		</div>
+		<!-- /ko -->
+		<!-- ko if: !initSearch() -->
+		<div class="box_message">
+			<div class="info_point static_grey">
+				<span class="inside_image error_format"></span>
+			</div>
+			<div class="separate_message">{{yourLibraryIsEmpty}}<!-- libraryOfUserIsEmpty --></div>
+		</div>
+		<!-- /ko -->
+		<!-- /ko -->
+
+		<!-- ko if: initSearch() -->
+		<!-- ko if: where({ search_type : 'user' }).length > 0 -->
+		<div class="group_name_txt">{{groupOfMyFiles}}<!-- groupOfUserFiles --></div>
+
+		<!-- ko foreach: where({ search_type : 'user' }) -->
+
+		<!-- ko component: { name: 'file-item', params: { route: $root.route, data: $data } }--><!-- /ko -->
+		<!-- /ko -->
+
+		<!-- /ko -->
+		<!-- ko if: where({ search_type : 'global' }).length > 0 -->
+		<div class="group_name_txt">{{groupOfOtherFiles}}</div>
+
+		<!-- ko foreach: where({ search_type : 'global' }) -->
+		<!-- ko component: { name: 'file-item', params: { route: $root.route, data: $data } }--><!-- /ko -->
+		<!-- /ko -->
+
+		<!-- /ko -->
+		<!-- /ko -->
+
+		<!-- ko if: !initSearch() -->
+		<!-- ko foreach: models -->
+		<!-- ko component: { name: 'file-item', params: { route: $root.route, data: $data } }--><!-- /ko -->
+		<!-- /ko -->
+		<!-- /ko -->
+
+		<!-- ko if: uploading() -->
+		<div class="preloader">
+			<span class="preloader_core"></span>
+		</div>
+		<!-- /ko -->
+	</div>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->

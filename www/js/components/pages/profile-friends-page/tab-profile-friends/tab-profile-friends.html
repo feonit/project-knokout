@@ -1,0 +1,28 @@
+<!-- ko with: alienUser -->
+<div class="avatar_field">
+    <img data-bind="attr: { 'src': avatar_full_path()}">
+</div>
+<div class="user_profile_name" data-bind="text: $data.family()+' '+$data.name()+' '+$data.patronymic()"></div>
+<div class="user_profile_info">
+    <!-- ko text: $data.position() --><!-- /ko --><br />
+    <!-- ko text: $data.address() --><!-- /ko -->
+</div>
+<div class="padding_top">
+    <div class="btn_both_side">
+        <!-- ko if: $data.sendInvite() == false -->
+        <button type="button" class="btn btns_blue delay" data-title="{{subscribe}}" data-bind="click: $data.subscribe" >{{subscribe}}</button>
+        <!-- /ko -->
+        <!-- ko if: $data.sendInvite() == true -->
+        <!-- ko if: $data.confirmed() == true -->
+        <button type="button" class="btn btns_red delay" data-bind="click: unsubscribeConfirm">{{unsubscribe}}</button>
+        <!-- /ko -->
+        <!-- ko if: $data.confirmed() == false -->
+        <button type="button" class="btn disabled_btn delay" data-title="{{youAreAlreadySubscribedToUser}}" disabled="disabled">{{subscribe}}</button>
+        <!-- /ko -->
+        <!-- /ko -->
+    </div>
+    <div class="btn_both_side">
+        <button type="button" class="btn btns_blue delay" data-bind="click: $data.openDialog" data-title="{{sendMessage}}" >{{sendMessage}}</button>
+    </div>
+</div>
+<!-- /ko -->

@@ -1,0 +1,174 @@
+<li class="catalog_item_folder" data-bind="css: { 'drag_moving' : isMoving, 'drag_moved' : isMoved }">
+    <div class="library_list" data-bind="
+        attr: { draggable: isDraggable() },
+        event: !isRoot() ? {
+            mousedown: onmousedown,
+            mouseup: onmouseup,
+            drag: ondrag,
+            dragover: ondragover,
+            dragleave: ondragleave,
+            dragenter: ondragenter,
+            drop: ondrop,
+            dragstart: ondragstart,
+            dragend: ondragend
+        } : {
+            dragover: ondragover,
+            dragleave: ondragleave,
+            drop: ondrop,
+        },
+        css: { 'drag_taken' : isTaken, 'drag_taking': isTaking, 'no_drop': !mayTake(), 'selected' : isSelected(), 'catalog_folder_root' : isRoot() }">
+
+        <div class="check_selector">
+            <!-- ko if: !isRoot() -->
+            <!-- ko if: deleted() === false -->
+            <input id="file_01" class="none" type="checkbox" value="1" data-bind="attr: { id : 'file_' + $data.id(), value: id}, checked: isSelected, disable: isDisabledCheckBox ">
+            <label for="file_01" class="checkbox_style no_text mid_align" data-bind="attr: { for : 'file_' + $data.id() }, click: onToggleSelectStateClick "></label>
+            <!-- /ko -->
+            <!-- /ko -->
+
+            <!-- ko if: files() && files().isFetching() -->
+            <div class="preloader folder_open_preloader">
+                <span class="preloader_core"></span>
+            </div>
+            <!-- /ko -->
+
+        </div>
+
+        <!-- ko if: deleted() == true -->
+        <div class="delete_file_ico">
+            <p>{{folder}} &laquo;<!-- ko text: title --> <!-- /ko -->&raquo; <span style="text-transform: lowercase">{{isRemovedShe}}</span></p>
+            <p class="font_small blue" data-bind="click: onClickRestore">{{restore}}?</p>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: deleted() == false -->
+
+        <div class="folder_file_item">
+            <!-- ko if: isEmptyRealy() -->
+            <div data-bind="click: onClickAtEmptyFolder" class="big_icon_point closed_folder_ico grey_folder_ico"></div>
+            <!-- /ko -->
+            <!-- ko if: !isEmptyRealy() -->
+            <div class="big_icon_point closed_folder_ico" data-bind="click: toggleIsOpenedState, css: isOpened() ? 'open_folder_ico' : 'closed_folder_ico' "></div>
+            <!-- /ko -->
+        </div>
+
+        <!-- ko if: renamed() == true -->
+        <div class="folder_rename_block">
+            <!-- ko component: { name: 'rename-form', params: {} }-->
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+        <!-- ko if: renamed() == false -->
+        <!-- ko if: isMaxNestingLevel() -->
+        <div class="icon_static static_red float_right">
+            <span class="inside_image folder_tree_end"></span>
+        </div>
+        <!-- /ko -->
+        <div class="file_informations">
+
+            <!-- ko switch: isRoot() -->
+            <!-- ko case: true -->
+            <!-- ko if: !isEmptyRealy() -->
+            <p class="folder_name" data-bind="text: $data.title(), click: toggleIsOpenedState">Название папки</p>
+            <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko case: false -->
+            <!-- ko if: !isEmptyRealy() -->
+            <a href="javascript: void 0" class="folder_name" data-bind="text: $data.title(), click: toggleIsOpenedState">Название папки</a>
+            <!-- /ko -->
+            <!-- /ko -->
+            <!-- /ko -->
+
+            <!-- ko if: isEmptyRealy() -->
+            <p class="empty_folder_name" data-bind="text: $data.title(), click: toggleIsOpenedState">Название папки</p>
+            <p><span>{{folderIsEmpty}}</span></p>
+            <!-- /ko -->
+        </div>
+        <!-- ПЕРВЫЙ -->
+        <!-- ko if: route().page === 'profile-page' -->
+
+        <div class="add_down_field" data-bind="
+            css: { 'js-open-list' : accessIsOpened() },
+            event: { mouseleave: onMouseleaveAccessSelectControl,
+            click: stopPropagation},
+            visible: !isRoot() ">
+            <div class="access_field margin_right_16px">
+                <label class="radio_holder access_child_01">
+                    <input type="radio" class="access_radio none" name="" value="OWNER" data-bind="checked: secureLevel">
+                    <div class="icon_btn btns_blue owner_access" data-title="{{availableOnlyTome}}" data-bind="click: onClickAccessOwner"></div>
+                </label>
+                <label class="radio_holder access_child_02">
+                    <input type="radio" class="access_radio none" name="" value="SUBSCRIBERS" data-bind="checked: secureLevel">
+                    <div class="icon_btn btns_blue colleagues_access" data-title="{{availableToMyColleagues}}" data-bind="click: onClickAccessSubscribers"></div>
+                </label>
+                <label class="radio_holder access_child_03">
+                    <input type="radio" class="access_radio none" name="" value="PUBLIC" data-bind="checked: secureLevel">
+                    <div class="icon_btn btns_blue public_access" data-title="{{availableToAll}}" data-bind="click: onClickAccessPublic"></div>
+                </label>
+            </div>
+
+            <button type="button" class="icon_btn btns_red" data-title="{{removeFolder}}" data-bind="click: onClickDelete" >
+                <span class="inside_image delete_file"></span>
+            </button>
+            <button type="button" class="icon_btn btns_blue" data-title="{{edit}}" data-bind="click: onClickShowRenameForm" >
+                <span class="inside_image edit_file"></span>
+            </button>
+        </div>
+        <!-- /ko -->
+        <!-- /ПЕРВЫЙ -->
+
+        <!-- ТРЕТИЙ -->
+        <!-- ko if: route().page === 'profile-friends' -->
+        <!--&lt;!&ndash; ko if: $data.availableInLibrary() == true &ndash;&gt;-->
+        <!--<div class="req_down_field">-->
+        <!--<label data-title="{{fileInYourLibrary}}" class="icon_static static_green" >-->
+        <!--<span class="inside_image success_file"></span>-->
+        <!--</label>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; /ko &ndash;&gt;-->
+        <div class="add_down_field">
+            <button type="button" class="icon_btn btns_green" data-title="{{addFileToLibrary}}" data-bind="click: onClickCopyFolderToMyLibrary">
+                <span class="inside_image add_tolibrary"></span>
+            </button>
+        </div>
+        <!-- /ko -->
+        <!-- /ТРЕТИЙ -->
+
+        <!-- /ko -->
+
+        <!-- /ko -->
+    </div>
+
+    <div class="contents_of_folder" data-bind="css: isOpened() ? 'folder_is_open overflow_blink' : 'folder_is_closed' ">
+        <ul class="inside_folder_ul" >
+
+            <!-- ko if: files -->
+
+            <!-- ko foreach: childrens -->
+            <!-- ko component: { name: 'folder-item', params: { route: $root.route, data: $data } }--><!-- /ko -->
+            <!-- /ko -->
+
+            <!-- ko with: files -->
+            <!-- ko foreach: models -->
+            <li class="catalog_item_file" data-bind="css: { 'drag_moved' : isMoved }">
+                <div data-bind="
+                        attr: { draggable: isDraggable() },
+                        event: { mousedown: onmousedown, mouseup: onmouseup, dragstart: ondragstart, dragend: ondragend },
+                        css: { 'drag_moving' : isMoving, 'selected' : isSelected }">
+                    <!-- ko if: deleted() === false -->
+                    <div class="check_selector inside">
+                        <input id="" class="none" type="checkbox" value="1" data-bind="attr: { id : 'file_' + $data.id(), value: id}, checked: isSelected, disable: isDisabledCheckBox ">
+                        <label for="" class="checkbox_style no_text mid_align" data-bind="attr: { for : 'file_' + $data.id() }"></label>
+                    </div>
+                    <!-- /ko -->
+
+                    <div class="folder_file_list">
+                        <!-- ko component: { name: 'file-item', params: { route: $root.route, data: $data } }--><!-- /ko -->
+                    </div>
+                </div>
+            </li>
+            <!-- /ko -->
+            <!-- /ko -->
+            <!-- /ko -->
+        </ul>
+    </div>
+</li>

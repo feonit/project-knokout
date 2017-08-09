@@ -1,0 +1,13 @@
+<div class="control_confirmation">
+    <div class="control_confirmation_buttons_wraper js-buttons" data-bind="visible: !isProcessing()">
+        <button type="button" class="icon_btn btns_red modal_button_cancel" data-bind="click: $data.cancel">
+					<span class="inside_image delete_btn"></span>
+				</button>
+        <button type="button" class="icon_btn btns_green modal_button_ok" data-bind="click: $data.confirm">
+					<span class="inside_image success_file"></span>
+				</button>
+    </div>
+		<div class="preloader js-preloader" data-bind="visible: isProcessing()">
+			<span class="preloader_core"></span>
+		</div>
+</div>

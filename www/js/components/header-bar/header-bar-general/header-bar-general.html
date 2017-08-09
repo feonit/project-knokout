@@ -1,0 +1,100 @@
+<div class="header_line">
+    <div class="header_inside_bl">
+        <div class="mini_logo">
+            <!-- ko if: application.USER_DATA.userLanguage === 'en'-->
+            <a class="main_link_logo logo_english" href="/"></a>
+            <!-- /ko -->
+            <!-- ko if: application.USER_DATA.userLanguage === 'ru'-->
+            <a class="main_link_logo logo_russian" href="/"></a>
+            <!-- /ko -->
+        </div>
+        <div class="padding_top float_left">
+            <a data-bind="css: route().page === 'webinar-create-page' ? 'active_a' : ''" class="btn btns_blue delay bottom_pos_tooltip image_button" href="/webinar/create" data-title="{{createNewWebinar}}">
+                {{createWebinar}}
+                <span class="inside_button_image create_webinar"></span>
+            </a>
+        </div>
+        <div class="padding_top float_right">
+            <div class="float_left margin_right_20px">
+                <a data-bind="css: route().page === 'calendar-page' ? 'active_a' : '' " class="icon_btn float_left btns_blue margin_right_small bottom_pos_tooltip" href="/calendar" data-title="{{calendar}}">
+                    <span class="inside_image calendar_btn">
+                        <span data-bind="text: getCurrentDate()" class="td_datecalendar"></span>
+                    </span>
+                </a>
+                <a data-bind="css: route().page === 'news-page' ? 'active_a' : '' " class="icon_btn float_left btns_blue margin_right_small bottom_pos_tooltip" href="/news" data-title="{{news}}">
+                    <span class="inside_image news_btn"></span>
+                    <!-- ko if: typeof (parseInt(newsCountShown())) === 'number' && newsCountShown() > 0 -->
+                    <span class="new_redsp"><span data-bind="animateText: $data.newsCountShown()"></span></span>
+                    <!-- /ko -->
+                </a>
+                <a data-bind="css: route().page === 'dialogs-page' ? 'active_a' : '' " class="icon_btn float_left btns_blue margin_right_small bottom_pos_tooltip" href="/dialogs" data-title="{{messages}}">
+                    <span class="inside_image message_btn"></span>
+                    <!-- ko if: typeof (parseInt(dialogsCountShown())) === 'number' && dialogsCountShown() > 0 -->
+                    <span class="new_redsp"><span data-bind="animateText: dialogsCountShown()"></span></span>
+                    <!-- /ko -->
+                </a>
+                <button data-bind="
+					click: $root.search().openSearch,
+					css : $root.search().opened() ? 'btns_red' : '',
+					attr: {
+						'data-title' : $root.search().opened() ? '{{close}}' : '{{search}}'
+					}" type="button" class="icon_btn btns_blue float_left search_glob_btn bottom_pos_tooltip">
+                    <span class="inside_image glob_search_btn" data-bind="css : $root.search().opened() ? 'delete_btn' : ''"></span>
+                </button>
+            </div>
+            <div class="float_left profile_block_user online_status">
+                <!-- ko with: $root.currentUser -->
+                <img class="float_left user_img" data-bind="attr: { 'src': small_avatar_full_path() }" alt="" />
+                <!-- /ko -->
+                <div class="relate_container_user">
+                    <div class="user_name">
+                        <!-- ko with: $root.currentUser -->
+                        <!-- ko text: name()--><!-- /ko --> <br/> <!-- ko text: family() --><!-- /ko -->
+                        <!-- /ko -->
+                    </div>
+                    <div class="bage_list">
+                        <a href="/module/user/profile/edit#tab1" class="user_profile_list">
+                            <div class="bage_inside_image bage_pers_data"></div>
+                            <span class="mid_align">{{profile}}</span>
+                        </a>
+                        <a href="/module/user/profile/edit#tab2" class="user_profile_list">
+                            <div class="bage_inside_image bage_pers_library"></div>
+                            <span class="mid_align">{{library}}</span>
+                        </a>
+                        <a href="/module/user/profile/edit#tab3" class="user_profile_list">
+                            <div class="bage_inside_image bage_pers_colleagues"></div>
+                            <span class="mid_align">{{colleagues}}</span>
+                        </a>
+                        <a href="/module/user/profile/edit#tab4" class="user_profile_list">
+                            <div class="bage_inside_image bage_pers_webinars"></div>
+                            <span class="mid_align">{{webinars}}</span>
+                        </a>
+                        <a href="/module/user/profile/edit#tab5" class="user_profile_list">
+                            <div class="bage_inside_image bage_pers_options"></div>
+                            <span class="mid_align">{{settings}}</span>
+                        </a>
+                        <a href="/module/user/auth/logout" class="user_profile_list js_logout">
+                            <div class="bage_inside_image bage_pers_quit"></div>
+                            <span class="mid_align">{{exit}}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="confirm_event_container">
+    <div class="event_message">
+        <div class="message_inside_container">
+            <span class="mess_icon red error_format float_left"></span>
+            <div class="float_right confirm_right_btns">
+                <span class="response_btn delete_response" id="confirmButtonWindow_cancel"></span>
+                <span class="response_btn accept_response" id="confirmButtonWindow_save"></span>
+            </div>
+            <div class="message_text">
+                {{saveChangesQuestion}}
+            </div>
+        </div>
+    </div>
+</div>

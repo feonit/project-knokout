@@ -1,0 +1,28 @@
+<div class="add_down_field js-open-list" data-bind="
+    css: { 'js-open-list' : accessIsOpened() },
+    event: {
+        mouseleave: onMouseleaveAccessSelectControl,
+        click: stopPropagation }"
+    >
+    <div class="access_field margin_right_16px">
+        <label class="radio_holder access_child_01" data-title="{{availableOnlyTome}}">
+            <input type="radio" class="access_radio none" name="" value="OWNER" data-bind="checked: secureLevel">
+            <div class="icon_btn btns_blue owner_access" data-bind="click: onClickAccessOwner"></div>
+        </label>
+        <label class="radio_holder access_child_02" data-title="{{availableToMyColleagues}}">
+            <input type="radio" class="access_radio none" name="" value="SUBSCRIBERS" data-bind="checked: secureLevel">
+            <div class="icon_btn btns_blue colleagues_access" data-bind="click: onClickAccessSubscribers"></div>
+        </label>
+        <label class="radio_holder access_child_03" data-title="{{availableToAll}}">
+            <input type="radio" class="access_radio none" name="" value="PUBLIC" data-bind="checked: secureLevel">
+            <div class="icon_btn btns_blue public_access" data-bind="click: onClickAccessPublic"></div>
+        </label>
+    </div>
+
+    <button type="button" class="icon_btn btns_red" data-title="{{removeFile}}" data-bind="click: onClickDelete" >
+        <span class="inside_image delete_file"></span>
+    </button>
+    <button type="button" class="icon_btn btns_blue" data-title="{{edit}}" data-bind="click: onClickShowRenameForm" >
+        <span class="inside_image edit_file"></span>
+    </button>
+</div>

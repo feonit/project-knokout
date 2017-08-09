@@ -1,0 +1,33 @@
+<div class="popUp_Window upload_avatar">
+	<div class="pop_up_container small_size_popup">
+		<!-- =============== information tags =============== -->
+		<div class="popup_notification_block no_border_margin inf_step_01 none">
+			<div class="popup_icon_block float_left camera_photo_icon"></div>
+			<div class="popup_text_notification">{{tookPhotos}}</div>
+		</div>
+		<div class="popup_notification_block no_border_margin inf_step_02 none">
+			<div class="popup_icon_block float_left crop_image_icon"></div>
+			<div class="popup_text_notification">{{indicateRegionPhoto}}</div>
+		</div>
+		<!-- =============== information tags =============== -->
+		<div id="webcropImg">
+			<div class="img_webcontainer"></div>
+		</div>
+		<div class="buttons_container">
+			<div class="float_left button_text_container txt_step_01 none">
+				{{tookPhotoQuestion}}
+			</div>
+			<div class="float_left button_text_container txt_step_02 none">
+				{{useThatPhotoQuestion}}
+			</div>
+			<div class="float_right js-container-buttons none">
+				<button type="button" class="icon_btn btns_red close_uploading modal_button_cancel js-close-upload-popup">
+					<span class="inside_image delete_btn"></span>
+				</button>
+				<button type="button" class="icon_btn btns_green confirm_avatar modal_button_ok js-confirm-upload-popup">
+					<span class="inside_image success_file"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

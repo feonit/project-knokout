@@ -1,0 +1,69 @@
+<script type="text/html" id="user-template">
+    <div class="library_list">
+        <div data-bind="component: { name: 'user-badge', params: { user: $data } }"></div>
+
+        <div class="follower_info">
+						<span class="foll_infospan">
+						  <!-- ko text: $data.position --><!-- /ko --><br />
+						  <!-- ko text: $data.address --><!-- /ko -->
+						</span>
+        </div>
+        <div class="add_down_field">
+            <button type="button" class="icon_btn btns_green" data-title="{{addUser}}" data-bind="click: function () { $root.uiEvent().event().participantsCollection().addUserOnId($data.id()) }">
+                <span class="inside_image add_file"></span>
+            </button>
+        </div>
+        <div class="news_down_field" data-bind="if: $root.uiEvent().event().participantsCollection().userExistAndConfirmedInvite($data.id())">
+            <label data-title="{{userIsAlreadyInvited}}" class="icon_static static_blue">
+                <span class="inside_image success_file"></span>
+            </label>
+        </div>
+    </div>
+</script>
+
+<!-- ko with: usersCollection() -->
+
+<!-- ko if: loaded() == false -->
+<div class='preloader'></div>
+<!-- /ko -->
+
+<!-- ko if: loaded() == true -->
+
+<!-- ko if: initSearch() -->
+<!-- ko if: where({ search_type : 'user' }).length > 0 -->
+<div class="group_name_txt">{{groupOfMyUsers}}</div>
+<div data-bind="template: { name: 'user-template', foreach: where({ search_type : 'user' }) }"></div>
+<!-- /ko -->
+<!-- ko if: where({ search_type : 'global' }).length > 0 -->
+<div class="group_name_txt">{{groupOfOtherUsers}}</div>
+<div data-bind="template: { name: 'user-template', foreach: where({ search_type : 'global' }) }"></div>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if: !initSearch() -->
+ <!--ko if: getConfirmedColleaguesUsers().length > 0; -->
+<div class="group_name_txt">{{groupOfMyUsers}}</div>
+<div data-bind="template: { name: 'user-template', foreach: getConfirmedColleaguesUsers() }"></div>
+<br>
+ <!--/ko -->
+<!-- ko with: $root.uiEvent().event().participantsCollection().getParticipantsUsersList().length > 0 -->
+<div class="group_name_txt">{{groupOfOtherUsers}}</div>
+<div data-bind="template: { name: 'user-template', foreach: $root.uiEvent().event().participantsCollection().getParticipantsUsersList() }"></div>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if: !loading() && initSearch() && models().length === 0 -->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image error_format"></span>
+    </div>
+
+    <div class="separate_message">
+        {{yourSearchEmpty}}
+    </div>
+</div>
+<!-- /ko -->
+
+<!-- /ko -->
+
+<!-- /ko -->

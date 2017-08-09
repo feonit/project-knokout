@@ -1,0 +1,15 @@
+<div id="popupFrame">
+    <!-- ko if: currentPopupName() -->
+    <DIV class="popup-frame__content" data-bind="
+    component: { name: currentPopupName() },
+    css: { 'popup-frame__content-rendered' : isRendered() }
+    "></DIV>
+    <!-- /ko -->
+    <div class="bacgkround_fill popup-frame__bacgkround" data-bind="css: {
+    'popup-frame__background-opened' : isOpen(),
+    'popup-frame__background-right' : isAccepted(),
+    },
+    event: { transitionend: onTransitionEnd }">
+
+    </div>
+</div>

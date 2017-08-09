@@ -1,0 +1,39 @@
+<!-- ko with: $root.eventModel -->
+<div class="third_main_parent">
+    <h2 class="h2_style">{{description}}</h2>
+    <div class="inside_sml_block">
+        <!-- ko if: $data.description().length > 0 -->
+        <p class="font_default" data-bind="text: $data.description"></p>
+        <!-- /ko -->
+        <!-- ko if: $data.description().length == 0 -->
+        <p class="none_filled">{{descriptionNotCompiled}}</p>
+        <!-- /ko -->
+    </div>
+    <h2 class="h2_style">{{data}}</h2>
+    <div class="confirm_creation_status">
+        <div class="more_inf_web">
+            <img alt="" src="/images/webinar_date_ico.png">
+            <div class="web_img_text mid_align"><!-- ko text: $data.russian_date --><!-- /ko --></div>
+        </div>
+        <div class="more_inf_web">
+            <img alt="" src="/images/webinar_time_ico.png">
+            <div class="web_img_text mid_align"> <!-- ko text: $data.russian_startTime --><!-- /ko --> &mdash; <!-- ko text: $data.russian_endTime --><!-- /ko --> </div>
+        </div>
+        <div class="more_inf_web">
+            <img alt="" src="/images/webinar_lenght_ico.png">
+            <div class="web_img_text mid_align"><!-- ko text: $data.russian_duration --><!-- /ko --></div>
+        </div>
+        <div class="more_inf_web">
+            <!-- ko if: is_public() -->
+            <img alt="" src="/images/webinar_type_ico_public.png">
+            <div class="web_img_text mid_align">{{public}}</div>
+            <!-- /ko-->
+            <!-- ko if: !is_public() -->
+            <img alt="" src="/images/webinar_type_ico_private.png">
+            <div class="web_img_text mid_align">{{private}}</div>
+            <!-- /ko-->
+        </div>
+    </div>
+</div>
+<!-- /ko-->
+

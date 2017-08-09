@@ -1,0 +1,109 @@
+<script type="text/html" id="user-template">
+    <div class="library_list">
+        <div data-bind="component: { name: 'user-badge', params: { user: $data } }"></div>
+
+        <div class="follower_info">
+						<span class="foll_infospan">
+						  <!-- ko text: $data.position --><!-- /ko --><br/>
+						  <!-- ko text: $data.address --><!-- /ko -->
+						</span>
+        </div>
+        <!-- ko with: $root.eventModel() && $root.eventModel().participantsCollection() -->
+        <!-- ko switch: userIsParticipant($parent) -->
+        <!-- ko case: true -->
+        <div class="news_down_field">
+            <label data-title="{{theUserAdded}}" class="icon_static static_green">
+                <span class="inside_image success_file"></span>
+            </label>
+        </div>
+        <div class="add_down_field">
+            <button type="button" class="icon_btn btns_red" data-title="{{remove}}" data-bind="click: removeUserFromParticipants.bind($data, $parent) ">
+                <span class="inside_image cancel_file"></span>
+            </button>
+        </div>
+        <!-- /ko -->
+        <!-- ko case: false -->
+        <div class="add_down_field">
+            <button type="button" class="icon_btn btns_blue" data-title="{{add}}" data-bind="click: addUserToParticipants.bind($data, $parent) ">
+                <span class="inside_image add_file"></span>
+            </button>
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- /ko -->
+    </div>
+</script>
+
+<!-- контрол поиска -->
+<div data-bind="component: { name: 'control-search', params: {
+    componentName: uiSearchControl,
+    placeholder: '{{searchAmongColleagues}}',
+    onLoad: function(){alert('onLoadCallback')}
+}}">
+</div>
+
+<!-- ko with: $root.colleagues() -->
+
+<!-- ko switch: loading() -->
+<!-- ko case: true -->
+<div class="preloader">
+    <span class="preloader_core"></span>
+</div>
+<!-- /ko -->
+<!-- ko case: false-->
+
+<!-- ko if: models().length == 0 -->
+<!-- ko if: initSearch() -->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image colleagues_format"></span>
+    </div>
+    <div class="separate_message">{{yourSearchEmpty}}</div>
+</div>
+<!-- /ko -->
+<!-- ko if: !initSearch() && $root.eventModel().participantsCollection().getParticipantsUsersList().length === 0 -->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image colleagues_format"></span>
+    </div>
+    <div class="separate_message">{{youHaveNoColleagues}}</div>
+    <div class="separate_message">{{use}} <a href="#" data-bind="click: $root.search().openSearch"> {{theSearch}} </a>{{forSearch}}</div>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+
+
+<!-- ko if: initSearch() -->
+<!-- ko if: where({ search_type : 'user' }).length > 0 -->
+<div class="group_name_txt">{{groupOfMyUsers}}</div>
+<div data-bind="template: { name: 'user-template', foreach: where({ search_type : 'user' }) }"></div>
+<!-- /ko -->
+<!-- ko if: where({ search_type : 'global' }).length > 0 -->
+<div class="group_name_txt">{{groupOfOtherUsers}}</div>
+<div data-bind="template: { name: 'user-template', foreach: where({ search_type : 'global' }) }"></div>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if: !initSearch() -->
+<!-- ko if: getConfirmedColleaguesUsers().length > 0; -->
+<div class="group_name_txt">{{groupOfMyUsers}}</div>
+<div data-bind="template: { name: 'user-template', foreach: getConfirmedColleaguesUsers() }"></div>
+<br>
+<!-- /ko -->
+<!-- ko with: $root.eventModel() && $root.eventModel().participantsCollection().getParticipantsUsersList().length > 0 -->
+<span>{{groupOfOtherUsers}}</span>
+<div data-bind="template: { name: 'user-template', foreach: $root.eventModel().participantsCollection().getParticipantsUsersList() }"></div>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if: uploading() -->
+<div class="preloader">
+    <span class="preloader_core"></span>
+</div>
+<!-- /ko -->
+
+<!-- /ko -->
+<!-- /ko -->
+
+
+<!-- /ko -->

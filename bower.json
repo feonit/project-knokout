@@ -1,0 +1,78 @@
+{
+  "name": "LMS",
+  "version": "2.0.0",
+  "authors": [
+    ""
+  ],
+  "description": "-",
+  "license": "Commercial software",
+  "homepage": "/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "jquery": "1.8.3",
+    "jquery.fileapi": "0.4.7",
+    "jquery-touchswipe": "1.6.6",
+    "jquery-mousewheel": "3.1.12",
+    "jquery.formstyler": "1.6.1",
+    "jquery.maskedinput": "1.4.1",
+    "knockout": "3.3.0",
+    "FileAPI": "2.0.10",
+    "jssip": "0.7.7",
+    "Jcrop": "0.9.12",
+    "video.js": "4.11.3",
+    "requirejs": "2.1.16",
+    "page": "1.6.1",
+    "knockout-switch-case": "2.1.0",
+    "raven-js": "1.1.18",
+    "mustache": "1.2.0"
+  },
+  "install": {
+    "path": {
+      "js": "www/js/lib",
+      "css": "www/css/lib",
+      "gif": "www/css/lib",
+      "/[sc|le]ss$/": "www/css/lib"
+    },
+    "ignore": [
+      "jquery.formstyler",
+      "Jcrop",
+      "jquery-touchswipe"
+    ],
+    "sources": {
+      "jquery": "bower_components/jquery/jquery.js",
+      "jquery.fileapi": "bower_components/jquery.fileapi/jquery.fileapi.js",
+      "jquery-touchswipe": "bower_components/jquery-touchswipe/jquery.touchswipe.js",
+      "jquery-mousewheel": "bower_components/jquery-mousewheel/jquery.mousewheel.js",
+      "jquery.formstyler": "bower_components/jquery.formstyler/jquery.formstyler.js",
+      "jquery.maskedinput": "bower_components/jquery.maskedinput/dist/jquery.maskedinput.js",
+      "knockout": [
+        "bower_components/knockout/dist/knockout.js",
+        "bower_components/knockout/dist/knockout.debug.js"
+      ],
+      "knockout-switch-case": "bower_components/knockout-switch-case/knockout-switch-case.js",
+      "FileAPI": [
+        "bower_components/FileAPI/dist/FileAPI.js",
+        "bower_components/FileAPI/dist/FileAPI.html5.js",
+      ],
+      "recordrtc": "bower_components/recordrtc/RecordRTC.js",
+      "sipml5": "bower_components/sipml5/SIPml-api.js",
+      "Jcrop": [
+        "bower_components/Jcrop/js/jquery.Jcrop.js",
+        "bower_components/Jcrop/css/jquery.Jcrop.css",
+        "bower_components/Jcrop/css/Jcrop.gif"
+      ],
+      "video.js": [
+        "bower_components/video.js/dist/video-js/video.js",
+        "bower_components/video.js/dist/video-js/video.dev.js"
+      ],
+      "requirejs": "bower_components/requirejs/require.js",
+      "page": "bower_components/page/page.js",
+      "raven-js": "bower_components/raven-js/dist/raven.js"
+    }
+  }
+}

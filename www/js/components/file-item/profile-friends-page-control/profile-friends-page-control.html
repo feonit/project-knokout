@@ -1,0 +1,14 @@
+<!-- ko if: availableInLibrary() == true -->
+<div class="req_down_field">
+    <label data-title="{{fileInYourLibrary}}" class="icon_static static_green" >
+        <span class="inside_image success_file"></span>
+    </label>
+</div>
+<!-- /ko -->
+<!-- ko if: availableInLibrary() == false -->
+<div class="add_down_field">
+    <button type="button" class="icon_btn btns_green" data-title="{{addFileToLibrary}}" data-bind="click: onClickCopyToMyLibrary">
+        <span class="inside_image add_tolibrary"></span>
+    </button>
+</div>
+<!-- /ko -->

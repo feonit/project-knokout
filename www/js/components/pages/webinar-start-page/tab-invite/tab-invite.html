@@ -1,0 +1,27 @@
+<!-- ko if: $root.uiEvent().accessLevel() != 'lecturer' && !$root.uiEvent().event().isAuthor() -->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image error_format"></span>
+    </div>
+    <div class="separate_message">{{youMustBeLeading}}</div>
+</div>
+<!-- /ko -->
+
+<!-- ko if: $root.uiEvent().accessLevel() == 'lecturer' || $root.uiEvent().event().isAuthor() -->
+<div class="main_menu" id="userTabsSelectSource" data-bind="renderTabs: {
+    template: '_tabs-template',
+    hashEnabled: false,
+    tabs: appConfig.info.maximusSupport
+        ? [{'tabTitle': '{{users}}', onTabShow: $root.uiEvent().onTabShowUsersTab },{'tabTitle': 'Maximus', onTabShow: $root.uiEvent().onTabShowMaximusTab }]
+        : [{'tabTitle': '{{users}}', onTabShow: $root.uiEvent().onTabShowUsersTab }]
+    }">
+</div>
+<div class="menu_switcher">
+    <div class="menu_step_blck third_main_parent padding_bot" id="userSourceTab">
+        <DIV data-bind="component: { name: 'tab-invite-participants', params: { componentName: 'componentTabParticipantsFromUsers' } }"></DIV>
+    </div>
+    <div class="menu_step_blck third_main_parent padding_bot" id="maximusSourceTab">
+        <DIV data-bind="component: { name: 'tab-invite-maximus', params: { componentName: 'componentTabParticipantsFromMaximus' } }"></DIV>
+    </div>
+</div>
+<!-- /ko -->

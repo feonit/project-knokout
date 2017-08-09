@@ -1,0 +1,75 @@
+<!-- ko with: $root.eventModel() -->
+
+<!-- ko if: !isFilledTime() -->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image error_format"></span>
+    </div>
+    <div class="separate_message">{{needFillDuration}}</div>
+</div>
+<!-- /ko -->
+
+<!-- ko if: isFilledTime()  -->
+<!-- ko if: timeline().length < 1  -->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image timeline_format"></span>
+    </div>
+    <div class="separate_message">{{timelineIsIt}}</div>
+</div>
+<div class="btns_field">
+    <button type="button" class="btn btns_blue add_mark" data-bind="
+						click: addTimeline,
+						css:(timeline().length>=10 || ((maxElementOffset()+(duration()/100*20))>duration())?'disabled_btn':''),
+						attr: {'data-title':timeline().length>=10?'{{noMoreThan10points}}':'{{addPoint}}'}">{{addPoint}}</button>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if: timeline().length > 0 -->
+<div class="time_line_field">
+    <div class="float_left font_med white">00:00</div>
+    <div class="float_right font_med white" data-bind="text: convertCountOfMinutesToHHMMFn(duration())"></div>
+    <div class="progress_line">
+        <!-- ko foreach: timeline -->
+        <div class="line_mark" data-bind="attr: {'id': 'mark_'+($index()+1), 'data-index': $index() }, style: { 'color': 'red', 'left': ((time()*100/$parent.duration())*656/100)+'px' }">
+            <span class="orange_mark" data-bind="text: $index()+1"></span>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
+
+<div class="btns_field">
+    <button type="button" class="btn btns_blue add_mark delay" data-bind="click: addTimeline, css:(timeline().length>=10 || ((maxElementOffset()+(duration()/100*20))>duration())?'disabled_btn':''), attr: {'data-title':timeline().length>=10?'{{noMoreThan10points}}':'{{addPoint}}'}">{{addPoint}}</button>
+</div>
+<div id="marks_inputs" data-bind="foreach: timeline">
+    <div class='library_list padding_top_none'>
+        <div class='mark_field'>
+            <span class='orange_mark' data-bind="text: ($index()+1)"></span>
+        </div>
+        <div class='mark_info_note'>
+            <div class='inp_main_block'>
+                <div class='delete_marknote float_right'>
+                    <button type="button" class='icon_btn btns_red remove_mark' data-title="{{remove}}" data-bind="click: $parent.removeTimeline">
+                        <span class="inside_image delete_file"></span>
+                    </button>
+                </div>
+                <div class='input_holder'>
+                    <label class='input_label'>{{message}}</label>
+                    <div class='input_field'>
+                        <input class='regular_input bigger_input' type='text' data-bind="valueUpdate: 'afterkeydown', validate: $data.message, value: $data.message" />
+                    </div>
+                </div>
+                <div class='input_holder margin_left_7px'>
+                    <label class='input_label'>{{time}}</label>
+                    <div class='input_field'>
+                        <input type='text' class='regular_input align_center time_input timeline_time' maxlength='4' data-bind="value: formattedTime, validate: $data.time" placeholder="ЧЧ:ММ" >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /ko -->
+
+<!-- /ko -->

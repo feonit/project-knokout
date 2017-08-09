@@ -1,0 +1,67 @@
+<!-- ko if: layout() === 'serverError' -->
+<DIV data-bind="component: { name: 'server-error-frame', params: { componentName: 'ERROR_FRAME' }}"></DIV>
+<!-- /ko -->
+
+<!-- ko if: layout() !== 'serverError' -->
+<DIV data-bind="component: { name: 'pages-frame',       params: { componentName: 'PAGES_FRAME', authorized: layout() === 'authorized', route: $root.route }}"></DIV>
+<!-- /ko -->
+
+<!-- ko if: layout() === 'authorized' -->
+
+<!-- ko if: !appConfig.auth.guest -->
+<header data-bind="component: { name: 'header-bar',     params: { componentName: 'HEADER_BAR',          route: $root.route }}"></header>
+<!-- /ko -->
+
+<DIV data-bind="component: { name: 'notification-bar',  params: { componentName: 'NOTIFICATION_BAR',    route: $root.route }}" class="message_event_container"></DIV>
+<DIV data-bind="component: { name: 'popup-frame',       params: { componentName: 'POPUP_FRAME',         route: $root.route }}"></DIV>
+<DIV data-bind="component: { name: 'preview-frame',     params: { componentName: 'PREVIEW_FRAME' }}"></DIV>
+<DIV data-bind="component: { name: 'search-frame',      params: {}}"></DIV>
+<DIV data-bind="component: { name: 'dialog-frame',      params: { componentName: 'DIALOG_FRAME',        route: $root.route }}"></DIV>
+<DIV data-bind="component: { name: 'bug-report',        params: { componentName: 'BUG_REPORT',          route: $root.route }}"></DIV>
+
+<!-- /ko -->
+
+<button type="button" class="go_topbtn" data-bind="click: onArrowButtonClick"></button>
+<div class="bacgkround_fill"></div>
+
+
+
+<!-- ko with: window.application.root().ajaxAdapter -->
+<div class="preloader_background"></div>
+<div class="upper_preloader">
+    <span class="preloader_core"></span>
+</div>
+<!-- /ko -->
+
+<script id="_tabs-template" type="text/html">
+    <!-- ko foreach: { data : tabs } -->
+    <a class="sub_menu_item tab_link" data-bind="
+	attr: getAttr(),
+	click: $parent.clickTab,
+	event: event()
+	">
+
+        <!-- ko text: tabTitle --><!-- /ko -->
+
+        <!-- ko if: typeof(counterEval) == 'string' && counterEval !==''-->
+        <span class="blue_count">
+            <span data-bind="animateText: counter(), css: counter() == 0 ? 'past_day_count' : '' ">0</span>
+        </span>
+        <!-- /ko -->
+
+        <!-- ko if: isValid() === false -->
+        <span class="small_error_tip"></span>
+        <!-- /ko -->
+
+    </a>
+    <!-- /ko -->
+    <div class="slide_border"></div>
+</script>
+<script id="_search-empty-template" type="text/html">
+    <div class="box_message">
+        <div class="info_point static_grey">
+            <span class="inside_image error_format"></span>
+        </div>
+        <div class="separate_message">{{yourSearchEmpty}}</div>
+    </div>
+</script>

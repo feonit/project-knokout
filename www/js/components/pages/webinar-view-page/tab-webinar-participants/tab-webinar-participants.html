@@ -1,0 +1,91 @@
+<!-- ko with: $root.eventModel -->
+
+<!-- ko if: participantsCollection().models().length == 0 -->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image error_format"></span>
+    </div>
+    <div class="separate_message">{{listOfParticipantsIsEmpty}}</div>
+</div>
+<!-- /ko -->
+<!-- ko if: participantsCollection().models().length > 0 -->
+<!-- ko foreach: participantsCollection().models() -->
+<div class="library_list">
+    <div data-bind="component: { name: 'user-badge', params: { user: user() } }"></div>
+
+    <div class="follower_info">
+        <span class="foll_infospan" data-bind="text: user().position"></span>
+        <span class="foll_infospan" data-bind="text: user().address">г</span>
+    </div>
+
+    <!-- ko if: $parent.status() === 'CANCELED' -->
+    <!-- ko if: confirmed() == '0' -->
+    <div class="float_right webinar_status web_success">{{wasExpected}}</div>
+    <!-- /ko -->
+    <!-- ko if: confirmed() == '1' -->
+    <div class="float_right webinar_status web_success">{{wasExpected}}</div>
+    <!-- /ko -->
+    <!-- ko if:  confirmed() == '2' -->
+    <div class="float_right webinar_status web_canceled">{{refused}}</div>
+    <!-- /ko -->
+    <!-- /ko -->
+
+
+
+    <!-- ko if: $parent.status() === 'CLOSED' -->
+    <!-- ko if: confirmed() == '0' -->
+    <div class="float_right webinar_status web_success">{{missed}}</div>
+    <!-- /ko -->
+    <!-- ko if: confirmed() == '1' -->
+    <!-- ko if: status() === 'BANNED' -->
+    <div class="float_right webinar_status web_canceled">{{excluded}}</div>
+    <!-- /ko -->
+    <!-- ko if: status() === 'WAIT' -->
+    <div class="float_right webinar_status web_success">{{missed}}</div>
+    <!-- /ko -->
+    <!-- ko if:  status() === 'ONLINE' || status() === 'OFFLINE'-->
+    <div class="float_right webinar_status web_wait">{{participated}}</div>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko if:  confirmed() === '2' -->
+    <div class="float_right webinar_status web_canceled">{{refused}}</div>
+    <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko if: $parent.status() === 'ONLINE' -->
+    <!-- ko if: confirmed() == '0' -->
+    <div class="float_right webinar_status web_success">{{invited}}</div>
+    <!-- /ko -->
+    <!-- ko if: confirmed() == '1' -->
+    <!-- ko if: status() === 'BANNED' -->
+    <div class="float_right webinar_status web_canceled">{{excluded}}</div>
+    <!-- /ko -->
+    <!-- ko if: status() === 'WAIT' -->
+    <div class="float_right webinar_status web_success">{{expected}}</div>
+    <!-- /ko -->
+    <!-- ko if:  status() === 'ONLINE' || status() === 'OFFLINE'-->
+    <div class="float_right webinar_status web_wait">{{participates}}</div>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko if:  confirmed() == '2' -->
+    <div class="float_right webinar_status web_canceled">{{refused}}</div>
+    <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko if: $parent.status() === 'PLANNED' -->
+    <!-- ko if: confirmed() == '0' -->
+    <div class="float_right webinar_status web_success">{{invited}}</div>
+    <!-- /ko -->
+    <!-- ko if: confirmed() == '1' -->
+    <div class="float_right webinar_status web_wait">{{participates}}</div>
+    <!-- /ko -->
+    <!-- ko if:  confirmed() == '2' -->
+    <div class="float_right webinar_status web_canceled">{{refused}}</div>
+    <!-- /ko -->
+    <!-- /ko -->
+
+</div>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- /ko -->

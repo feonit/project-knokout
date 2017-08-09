@@ -1,0 +1,42 @@
+<!-- ko with: currentUser() -->
+<h1 data-bind="text: name() + ' ' + family()"></h1>
+<!-- /ko -->
+
+<div class="main_menu" id="myProfileTabsComponent" data-bind="renderTabs: {
+	template: '_tabs-template',
+	hashEnabled: true,
+	tabs: [
+	{'tabTitle': '{{profile}}'},
+	{'tabTitle': '{{library}}', counterEval: 'application.root().catalogViewModel()== \'\' ? 0 : application.root().catalogViewModel().countOfAllFiles()' },
+	{'tabTitle': '{{colleagues}}', counterEval: 'application.root().colleagues()== \'\' ? 0 : application.root().colleagues().total()'},
+	{'tabTitle': '{{webinars}}', counterEval: 'application.root().webinarsCollection()== \'\' ? 0 : application.root().webinarsCollection().total()'},
+	{'tabTitle': '{{settings}}'}]
+}"></div>
+
+<div class="menu_switcher">
+	<div id="myProfileTab" class="menu_step_blck inside_cent padding_bot">
+		 <!-- if: activeTabIndex() === 0 -->
+		<DIV data-bind="component: { name: 'tab-profile', params: { componentName: 'componentTabProfile', route: $root.route } }"></DIV>
+		<!-- /ko -->
+	</div>
+	<div id="myLibraryTab" class="menu_step_blck second_main_parent">
+		<!--  if: activeTabIndex() === 1 -->
+		<DIV data-bind="component: { name: 'tab-library', params: { componentName: 'componentTabLibrary', route: $root.route } }"></DIV>
+		<!-- /ko -->
+	</div>
+	<div id="myColleaguesTab" class="menu_step_blck second_main_parent" >
+		<!--  if: activeTabIndex() === 2 -->
+		<DIV data-bind="component: { name: 'tab-colleagues', params: { componentName: 'componentTabColleagues', route: $root.route } }"></DIV>
+		<!-- /ko -->
+	</div>
+	<div id="myWebinarsTab" class="menu_step_blck second_main_parent" >
+		<!--  if: activeTabIndex() === 3 -->
+		<DIV data-bind="component: { name: 'tab-webinars', params: { componentName: 'componentTabWebinars', route: $root.route } }"></DIV>
+		<!-- /ko -->
+	</div>
+	<div id="myUserSettingsTab" class="menu_step_blck second_main_parent">
+		<!--  if: activeTabIndex() === 4 -->
+		<DIV data-bind="component: { name: 'tab-settings', params: { componentName: 'componentTabSettings', route: $root.route } }"></DIV>
+		<!-- /ko -->
+	</div>
+</div>

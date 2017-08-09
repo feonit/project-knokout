@@ -1,0 +1,66 @@
+<!-- ko with: userSettings -->
+<div class="main_menu" id="options_tap" data-bind="
+		    renderTabs: {
+			    template: '_tabs-template',
+			    hashEnabled: false,
+			    tabs: [
+				    {'tabTitle': '{{personalize}}'},
+				    {'tabTitle': '{{privacy}}'}
+			    ]
+		    }"></div>
+<div class="menu_switcher">
+    <div class="menu_step_blck third_main_parent">
+        <div class="margin_bottom_20px">
+            <div class="library_list">
+                <div class="padding_top float_left font_default">{{colorScheme}}</div>
+                <div class="float_right regular_select_field">
+                    <select class="large_select user_profile_option" data-bind="
+								options: [
+									{'id':'default', 'title':'{{light}}'},
+									{'id':'antracite', 'title':'{{dark}}'}
+								],
+								optionsText: 'title',
+								optionsValue: 'id',
+								value: USER_THEME"></select>
+                </div>
+            </div>
+            <div class="library_list">
+                <div class="padding_top float_left font_default">{{languageInterface}}</div>
+                <div class="float_right regular_select_field">
+                    <!-- ko with: $root.languages-->
+                    <select class="large_select user_profile_option" data-bind="
+														options: availableCountries,
+														optionsText: 'languagesName',
+														value: $parent.CURRENT_LANGUAGE,
+														optionsValue: 'alpha2'"></select>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="menu_step_blck third_main_parent">
+        <div class="margin_bottom_20px">
+            <div class="library_list">
+                <div class="padding_top float_left font_default">{{myLibraryIsAvailable}}</div>
+                <div class="float_right regular_select_field">
+                    <select class="large_select user_profile_option" data-bind="options: [
+																								{'id':'public', 'title':'{{forAll}}'},
+																								{'id':'protected', 'title':'{{forColleagues}}'},
+																								{'id':'private', 'title':'{{onlyForMe}}'}],
+																							optionsText: 'title', optionsValue: 'id', value: LIBRARY_ACCESS_LEVEL"></select>
+                </div>
+            </div>
+            <div class="library_list">
+                <div class="padding_top float_left font_default">{{myStoryWebinarsAvailable}}</div>
+                <div class="float_right regular_select_field">
+                    <select class="large_select user_profile_option" data-bind="options: [
+																								{'id':'public', 'title':'{{forAll}}'},
+																								{'id':'protected', 'title':'{{forColleagues}}'},
+																								{'id':'private', 'title':'{{onlyForMe}}'}],
+																							optionsText: 'title', optionsValue: 'id', value: WEBINAR_ACCESS_LEVEL"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /ko -->

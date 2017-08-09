@@ -1,0 +1,101 @@
+<link rel="stylesheet" href="/css/jquery.Jcrop.min.css">
+
+<!-- ko with: currentUser -->
+<div class="avatar_field">
+    <div class="avatar_preview">
+        <img data-bind="attr: { 'src': avatar_full_path()}">
+    </div>
+    <div class="absolue_btn_nk">
+        <div class="change_photo">
+            <button type="button" id="camera_upload" class="change_avatar" data-title="{{takeSnapshot}}"></button>
+            <label for="local_upload" class="upload_fileava" data-title="{{download}}"></label>
+            <input id="local_upload" type="file" class="none" accept="image/*" />
+        </div>
+    </div>
+</div>
+<div class="align_center">
+    <div class="user_profile_name" data-bind="text: family()+' ' + name()+' ' + patronymic()"></div>
+    <div class="user_profile_info">
+        <!-- ko text: position() --><!-- /ko --><br />
+        <!-- ko text: address() --><!-- /ko -->
+    </div>
+    <div class="input_container">
+        <div class="inp_main_block">
+            <!-- ======================================= -->
+            <div class="edit_holder" data-bind="visible: !(viewMode()=='editEmail')">
+                <div class="input_holder">
+                    <label class="input_label">{{email}}</label>
+                    <div class="input_field">
+                        <input class="regular_input" type="text" data-bind="value: censored_email()" readonly />
+                        <span class="err_note_img edit_field_inp change_smbtn change_email" data-bind="click: function () { changeViewMode('editEmail'); }"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- ======================================= -->
+            <div class="edit_holder" data-bind="visible: (viewMode()=='editEmail')">
+                <form data-bind="submit: changeEmail" >
+                    <div class="input_holder">
+                        <label class="input_label">{{newEmail}}</label>
+                        <div class="input_field">
+                            <input class="regular_input" type="text" data-bind="validate: email, value: email" >
+                        </div>
+                    </div>
+                    <div class="input_holder">
+                        <label class="input_label">{{repeatNewEmail}}</label>
+                        <div class="input_field">
+                            <input class="regular_input" type="text" data-bind="validate: confirmEmail, value: confirmEmail" >
+                        </div>
+                    </div>
+                    <div class="btns_holder">
+                        <button type="button" class="icon_btn btns_red back_step" data-bind="click: changeViewMode">
+                            <span class="inside_image delete_btn"></span>
+                        </button>
+                        <button type="submit" class="icon_btn btns_green confirm_step"  data-bind="click: changeEmail" >
+                            <span class="inside_image success_file"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- ======================================= -->
+        </div>
+        <div class="inp_main_block">
+            <!-- ======================================= -->
+            <div class="edit_holder" data-bind="visible: !(viewMode()=='changePassword')">
+                <div class="input_holder">
+                    <label class="input_label">{{password}}</label>
+                    <div class="input_field">
+                        <input class="regular_input" type="password" value="{{passwordHidden}}" readonly />
+                        <span class="err_note_img edit_field_inp change_smbtn change_password" data-bind="click: function () { $data.changeViewMode('changePassword'); }"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- ======================================= -->
+            <div class="edit_holder" data-bind="visible: (viewMode()=='changePassword')">
+                <form data-bind="submit: changePassword">
+                    <div class="input_holder">
+                        <label class="input_label">{{newPassword}}</label>
+                        <div class="input_field">
+                            <input class="regular_input" type="password" data-bind="validate: password, value: password" >
+                        </div>
+                    </div>
+                    <div class="input_holder">
+                        <label class="input_label">{{repeatPasword}}</label>
+                        <div class="input_field">
+                            <input class="regular_input" type="password" data-bind="validate: confirmPassword, value: confirmPassword" >
+                        </div>
+                    </div>
+                    <div class="btns_holder">
+                        <button type="button" class="icon_btn btns_red back_step" data-bind="click: changeViewMode">
+                            <span class="inside_image delete_btn"></span>
+                        </button>
+                        <button type="submit" class="icon_btn btns_green confirm_step" data-bind="click: changePassword">
+                            <span class="inside_image success_file"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- ======================================= -->
+        </div>
+    </div>
+</div>
+<!-- /ko -->

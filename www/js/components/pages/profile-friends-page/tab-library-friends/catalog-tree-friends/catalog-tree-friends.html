@@ -1,0 +1,27 @@
+<!-- ko if: loading() === true -->
+<div class="preloader">
+    <span class="preloader_core"></span>
+</div>
+<!-- /ko -->
+
+<!-- ko if: loading() === false -->
+
+<!-- ko if: noItems() -->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image error_format"></span>
+    </div>
+    <div class="separate_message">{{libraryOfUserIsEmpty}}</div>
+</div>
+<!-- /ko -->
+
+<!-- ko ifnot: noItems() -->
+<ul class="main_file_list">
+    <!-- ko with: rootFolder() -->
+    <!-- ko component: { name: 'folder-item-friends', params: {data: $data} } -->
+    <!-- /ko -->
+    <!-- /ko -->
+</ul>
+<!-- /ko -->
+
+<!-- /ko -->

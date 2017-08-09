@@ -1,0 +1,65 @@
+<!-- ko with: $root -->
+<h1>
+	{{news}}
+</h1>
+<div class="main_menu">
+	<div class="sub_menu_item selected_m">{{tape}}</div>
+</div>
+<div class="menu_switcher">
+	<div class="menu_step_blck second_main_parent" data-bind="with: news">
+		<!-- ko switch: loading() -->
+		<!-- ko case: true -->
+		<div class="preloader">
+			<span class="preloader_core"></span>
+		</div>
+		<!-- /ko -->
+		<!-- ko case: false-->
+		<!-- ko if: loaded() -->
+		<!-- ko if: models().length == 0 -->
+		<div class="box_message">
+			<div class="info_point static_grey">
+				<span class="inside_image error_format"></span>
+			</div>
+			<div class="separate_message">{{tapeIsEmpty}}</div>
+		</div>
+		<!-- /ko -->
+		<!-- ko foreach: models -->
+		<div class="library_list">
+			<div data-bind="component: { name: 'user-badge', params: { user: $data.userModel() } }"></div>
+
+			<div class="messages_info news_info">
+				<span class="foll_infospan" data-bind="html: text"></span>
+				<span class="message_date" data-bind="text: date"></span>
+			</div>
+			<!-- ko if: type() == 'WEBINAR_INVITE' -->
+			<div class="news_down_field">
+				<span class="small_buttons_message">{{acceptInvitationQuestion}}</span>
+				<control-confirm params="value: {confirm: $parent.inviteConfirm, cancel: $parent.inviteCancel, context: $data, arguments: [$data]} "></control-confirm>
+			</div>
+			<!-- /ko -->
+			<!-- ko if: type() == 'COLLEAGUE_INVITE' -->
+			<div class="news_down_field">
+				<span class="small_buttons_message">{{acceptInvitationQuestion}}</span>
+				<div class="control_confirmation">
+					<button type="button" class="icon_btn btns_red" data-bind="click: $parent.collagueInviteCancel">
+						<span class="inside_image delete_btn"></span>
+					</button>
+					<button type="button" class="icon_btn btns_green" data-bind="click: $parent.collagueInviteConfirm">
+						<span class="inside_image success_file"></span>
+					</button>
+				</div>
+			</div>
+			<!-- /ko -->
+		</div>
+		<!-- /ko -->
+		<!-- ko if: uploading() -->
+		<div class="preloader">
+			<span class="preloader_core"></span>
+		</div>
+		<!-- /ko -->
+		<!-- /ko -->
+		<!-- /ko -->
+		<!-- /ko -->
+	</div>
+</div>
+<!-- /ko -->

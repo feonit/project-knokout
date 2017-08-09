@@ -1,0 +1,80 @@
+<link rel="stylesheet" href="/css/video-js.css">
+
+<!-- контрол поиска -->
+<div data-bind="component: { name: 'control-search', params: {
+    componentName: uiSearchControl,
+    placeholder: '{{searchInWebinars}}',
+    onLoad: function(){alert('onLoadCallback')}
+}}">
+</div>
+
+<script type="text/html" id="webinar-item-template">
+    <!-- ko foreach: models -->
+    <div class="library_list">
+        <div class="info_point float_left" data-bind="css: (($data.status()==1)?'static_green':(($data.status()==2)?'static_orange':'static_grey'))">
+            <span class="inside_image webinar_format"></span>
+        </div>
+        <div class="file_information">
+            <a class="file_name" data-bind="text: $data.title(), attr: {'href': '/webinar/view/'+$data.event_id()}"></a>
+            <p><span>{{author}}: <a class="file_autor" data-bind="text: $data.author().name()+' '+$data.author().family(), attr: {'href':'/module/user/profile/view/'+$data.author().id()}"></a></span></p>
+        </div>
+        <div class="news_down_field">
+            <div class="date_webinar_status" data-bind="text: $data.russian_date, css: 'webinar_status '+$data.getCssClass()">24 ИЮНЯ 12:00</div>
+        </div>
+    </div>
+    <!-- /ko -->
+</script>
+
+<!-- ko with: webinarsCollection -->
+
+<!-- ko switch: loading() -->
+<!-- ko case: true -->
+<div class="preloader">
+    <span class="preloader_core"></span>
+</div>
+<!-- /ko -->
+<!-- ko case: false-->
+<!-- ko if: models().length == 0 -->
+<!-- ko if: initSearch()-->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image colleagues_format"></span>
+    </div>
+    <div class="separate_message">{{yourSearchEmpty}}</div>
+</div>
+<!-- /ko -->
+<!-- ko if: !initSearch()-->
+<div class="box_message">
+    <div class="info_point static_grey">
+        <span class="inside_image webinar_format"></span>
+    </div>
+    <div class="separate_message">{{youDoNotParticipate}}</div>
+    <div class="separate_message">{{use}} <a href="#" data-bind="click: $root.search().openSearch"> {{theSearch}} </a>{{forSearch}}</div>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if: initSearch() -->
+<!-- ko if: where({ search_type : 'user' }).length > 0 -->
+<div class="group_name_txt">{{groupOfMyWebinars}}</div>
+<div data-bind="template: { name: 'webinar-item-template', data: { models : where({ search_type : 'user' }) } }"></div>
+<!-- /ko -->
+<!-- ko if: where({ search_type : 'global' }).length > 0 -->
+<div class="group_name_txt">{{groupOfOtherWebinars}}</div>
+<div data-bind="template: { name: 'webinar-item-template', data: { models : where({ search_type : 'global' }) } }"></div>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if: !initSearch() -->
+<div data-bind="template: { name: 'webinar-item-template', data: { models : models } }"></div>
+<!-- /ko -->
+
+<!-- ko if: uploading() -->
+<div class="preloader">
+    <span class="preloader_core"></span>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- /ko -->

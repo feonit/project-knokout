@@ -1,0 +1,89 @@
+{
+    "__ignoreComponentName": 1,
+    "file-item": {
+        "profile-friends-page-control": {},
+        "profile-page-control": {},
+        "webinar-start-page-control": {}
+    },
+    "folder-item": {},
+    "user-badge": {},
+    "server-error-frame": {},
+    "title-html": {},
+    "header-bar": {
+        "header-bar-general" : {},
+        "header-bar-webinar" : {}
+    },
+    "dialog-frame" : {},
+    "popup-frame" : {},
+    "file-list" : {},
+    "file-list-friends" : {},
+    "bug-report" : {},
+    "search-frame" : {},
+    "preview-frame" : {},
+    "notification-bar" : {},
+    "pdf-frame" : {},
+    "controls" : {
+        "__ignoreComponentName": 1,
+        "control-search" : {},
+        "control-confirm" : {},
+        "control-time" : {},
+        "control-date-selector" : {}
+    },
+    "pages" : {
+        "__ignoreComponentName": 1,
+        "login-page": {},
+        "calendar-page" : {
+            "webinar-calendar" : {}
+        },
+        "news-page": {},
+        "dialogs-page" : {
+            "tab-new-message" : {}
+        },
+        "profile-page" : {
+            "tab-profile" : {},
+            "tab-library" : {
+                "catalog-tree" : {},
+                "rename-form" : {}
+            },
+            "tab-colleagues" : {
+                "colleagues-list" : {}
+            },
+            "tab-webinars" : {},
+            "tab-settings" : {}
+        },
+        "profile-friends-page" : {
+            "tab-profile-friends" : {},
+            "tab-library-friends" : {
+                "catalog-tree-friends" : {
+                    "folder-item-friends": {},
+                    "file-item-friends": {}
+                }
+            },
+            "tab-webinars-friends" : {},
+            "tab-colleagues-friends" : {
+                "colleagues-list-friends" : {}
+            }
+        },
+        "webinar-start-page" : {
+            "tab-participants": {},
+            "tab-invite": {
+                "tab-invite-maximus" : {},
+                "tab-invite-participants" : {
+                    "invite-participants-colleagues-list" : {}
+                }
+            }
+        },
+        "webinar-create-page" : {
+            "tab-webinar-create-info" : {},
+            "tab-webinar-create-participants" : {},
+            "tab-webinar-create-timeline" : {}
+        },
+        "webinar-view-page": {
+            "tab-live-broadcast": {},
+            "tab-webinar-files": {},
+            "tab-webinar-information": {},
+            "tab-webinar-participants": {},
+            "tab-webinar-record": {}
+        }
+    }
+}

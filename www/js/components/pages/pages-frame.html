@@ -1,0 +1,31 @@
+ <!--ko if: !authorized() -->
+ <DIV data-bind="component: {
+                        name: $root.route().page,
+                        params: {
+                            componentName: $root.route().page,
+                            route: $root.route
+                        }
+                    }">
+ </DIV>
+ <!--/ko -->
+
+<!-- ko if: authorized() -->
+<section>
+    <div data-bind="event: { scroll: scrolling }" class="middle_main_content">
+        <div class="scroll_catcher">
+            <div class="center_block">
+
+                <DIV data-bind="component: {
+                        name: $root.route().page,
+                        params: {
+                            componentName: $root.route().page,
+                            route: $root.route
+                        }
+                    }">
+                </DIV>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /ko -->

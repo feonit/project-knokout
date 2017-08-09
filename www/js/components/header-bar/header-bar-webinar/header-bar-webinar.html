@@ -1,0 +1,32 @@
+<div class="header_line">
+    <div class="header_inside_bl" data-bind="css: { 'webinar_start_header' : route().page === 'webinar-start-page' }">
+        <div class="mini_logo">
+            <!-- ko if: application.USER_DATA.userLanguage === 'en'-->
+            <a class="main_link_logo logo_english" href="/"></a>
+            <!-- /ko -->
+            <!-- ko if: application.USER_DATA.userLanguage === 'ru'-->
+            <a class="main_link_logo logo_russian" href="/"></a>
+            <!-- /ko -->
+        </div>
+        <!-- ko with: $root.uiEvent() -->
+        <div class="padding_top float_right">
+            <a href="/" class="btn btns_red bottom_pos_tooltip delay" data-bind="text: event().isAuthor()?'{{finish}}':'{{leave}}'"></a>
+        </div>
+        <div class="mid_header_field curtain_controller">
+            <button type="button" id="library_field" data-bind="click: onLibraryButtonClick, css: { 'disabled_btn' : false }" class="icon_btn btns_blue bottom_pos_tooltip" data-title="{{viewLibrary}}">
+                <span class="inside_image library_field"></span>
+            </button>
+            <button type="button" id="member_field" data-bind="click: onMemberButtonClick" class="icon_btn btns_blue bottom_pos_tooltip" data-title="{{viewMembers}}">
+                <span class="inside_image member_field"></span>
+            </button>
+        </div>
+        <!-- /ko -->
+        <div class="upper_curtain_head upper_curt_container none">
+            <div class="mid_header_field">
+                <button type="button" data-title="{{closeWindow}}" class="icon_btn btns_red" id="close_options">
+                    <span class="inside_image delete_btn"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

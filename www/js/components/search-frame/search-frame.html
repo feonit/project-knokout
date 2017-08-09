@@ -1,0 +1,296 @@
+<div class="global_search" data-bind="with: $root.search(), event: { scroll: scrolling } ">
+	<div class="second_main_parent global_searchview">
+	<!-- ======================================= -->
+	<div class="library_search">
+		<div class="input_field">
+			<input type="text" placeholder="{{lookingFor}}" data-bind="
+				enterKey: $data.searchRequst,
+				valueUpdate: 'afterkeydown',
+				validate: $data.searchString,
+				value: $data.searchString"
+			class="search_ipt top_align search_sel">
+			<div class="err_note_img clear_field_inp" data-bind="visible: $data.onEnter(), click: $data.reset" ></div>
+			<div data-title="{{find}}" class="err_note_img search_btn absolute_tool " data-bind="visible: !$data.onEnter(), click: $data.searchRequst"></div>
+		</div>
+	</div>
+	<!-- ko if: items().length == 0 && onEnter() != true -->
+	<div class="box_message">
+		<div class="info_point static_grey">
+			<span class="inside_image glob_search_btn"></span>
+		</div>
+		<div class="separate_message">{{thisGlobalSearch}}</div>
+	</div>
+	<!-- /ko -->
+
+	<!-- ko switch: loading() -->
+	<!-- ko case: true -->
+	<div class="preloader curtain_on">
+		<span class="preloader_core"></span>
+	</div>
+	<!-- /ko -->
+	<!-- ko case: false-->
+	<!-- ko if: loaded() -->
+	<div data-bind="visible: (onEnter() == true && items().length > 0)">
+		<div class="main_menu" id="tabsSearch"
+		     data-bind="renderTabs: {
+						template: '_tabs-template',
+						hashEnabled: false,
+						tabs: [
+						{'tabTitle': '{{all}}', counterEval : 'application.root().search().counters.all()'},
+						{'tabTitle': '{{users}}', counterEval : 'application.root().search().counters.user()'},
+						{'tabTitle': '{{materials}}', counterEval : 'application.root().search().counters.file()'},
+						{'tabTitle': '{{webinars}}', counterEval : 'application.root().search().counters.event()'}] }"></div>
+		<div class="menu_switcher third_main_parent">
+			<div class="menu_step_blck">
+				<!-- ko foreach: items() -->
+				<!-- ko if: $data.type == 1 -->
+				<div class="library_list">
+					<div class="count_number" data-bind="text: ($index()+1)"></div>
+					<div data-bind="component: { name: 'user-badge', params: { user: $data.model } }"></div>
+
+					<div class="follower_info">
+						<p class="foll_infospan">
+							<span class="foll_infospan" data-bind="text: $data.model.position"></span>
+							<span class="foll_infospan" data-bind="text: $data.model.address"></span>
+						</p>
+					</div>
+					<!-- ko if: $data.model.sendInvite() == true -->
+					<div class="req_down_field">
+						<!-- ko if: $data.model.confirmed() == true -->
+						<label data-title="Пользователь уже у вас в коллегах" class="icon_static static_green ">
+							<span class="inside_image success_file"></span>
+						</label>
+						<!-- /ko -->
+						<!-- ko if: $data.model.confirmed() == false -->
+						<label data-title="Вы отправили заявку" class="icon_static static_orange">
+							<span class="inside_image wait_member"></span>
+						</label>
+						<!-- /ko -->
+					</div>
+					<!-- /ko -->
+
+					<!-- ko if: $data.model.sendInvite() == false -->
+					<div class="add_down_field">
+						<button type="button" data-bind="click: $data.model.subscribe" class="icon_btn btns_green" data-title="{{subscribeToUser}}">
+							<span class="inside_image add_colleagues"></span>
+						</button>
+					</div>
+					<!-- /ko -->
+
+				</div>
+				<!-- /ko -->
+
+				<!-- ko if: $data.type == 2 -->
+				<div class="library_list">
+					<div class="count_number" data-bind="text: ($index()+1)">0</div>
+					<div class="info_point static_format float_left" >
+						<span class="inside_image" data-bind="css: $data.model.getDocTypeClass.call($data.model)"></span>
+					</div>
+					<div class="follower_info">
+						<p class="foll_infospan"><a class="file_name" data-bind="click: $data.model.onClickOpenPreview.bind($data.model), text: $data.model.title">{{title}}</a></p>
+						<p class="font_small">
+							<span>{{owner}}: <a class="file_autor" data-bind="text: $data.model.ownerName, attr: {'href':'/module/user/profile/view/'+$data.model.ownerId()}">{{ownersName}}</a></span>
+						</p>
+					</div>
+					<!-- ko if: $data.model.availableInLibrary() == true -->
+					<div class="req_down_field">
+						<label data-title="{{fileAddedToLibrary}}" class="icon_static static_green success_file">
+							<span class="inside_image success_file"></span>
+						</label>
+					</div>
+					<!-- /ko -->
+					<!-- ko if: $data.model.availableInLibrary() == false -->
+					<div class="add_down_field">
+						<button type="button" class="icon_btn btns_green" data-tooltip="{{addToLibrary}}" data-bind="click: $data.model.onClickCopyToMyLibrary.bind($data.model)" >
+							<span class="inside_image add_tolibrary"></span>
+						</button>
+					</div>
+					<!-- /ko -->
+				</div>
+				<!-- /ko -->
+
+				<!-- ko if: $data.type == 3 -->
+				<div class="library_list">
+					<div class="count_number" data-bind="text: ($index()+1)">0</div>
+
+					<!--ko switch: model.status -->
+					<!--ko case: 'PLANNED'-->
+					<div class="info_point  static_green float_left">
+						<span class="inside_image webinar_format"></span>
+					</div>
+					<!-- /ko -->
+					<!--ko case: 'ONLINE'-->
+					<div class="info_point static_orange float_left">
+						<span class="inside_image webinar_format"></span>
+					</div>
+					<!-- /ko -->
+					<!--ko case: 'CANCELED'-->
+					<div class="info_point static_red float_left">
+						<span class="inside_image webinar_format"></span>
+					</div>
+					<!-- /ko -->
+					<!--ko case: 'CLOSED'-->
+					<div class="info_point static_grey float_left">
+						<span class="inside_image webinar_format"></span>
+					</div>
+					<!-- /ko -->
+					<!-- /ko -->
+
+					<div class="follower_info">
+						<p class="foll_infospan"><a class="blue" data-bind="text: $data.model.title(), attr: {'href':'/webinar/view/'+$data.model.event_id()}">{{title}}</a></p>
+						<!--ko switch: model.status -->
+						<!--ko case: 'PLANNED'-->
+						<p class="font_small">{{upcomingWebinar}}</p>
+						<!-- /ko -->
+						<!--ko case: 'ONLINE'-->
+						<p class="font_small">{{launchedWebinar}}</p>
+						<!-- /ko -->
+						<!--ko case: 'CANCELED'-->
+						<p class="font_small">{{canceledWebinar}}</p>
+						<!-- /ko -->
+						<!--ko case: 'CLOSED'-->
+						<p class="font_small">{{completeWebinar}}</p>
+						<!-- /ko -->
+						<!-- /ko -->
+					</div>
+				</div>
+				<!-- /ko -->
+				<!-- /ko -->
+				<!-- ko if: items().length == 0 -->
+				<!-- ko template: '_search-empty-template' --><!-- /ko -->
+				<!-- /ko -->
+			</div>
+			<div class="menu_step_blck">
+				<!-- ko foreach: filterResult(1) -->
+				<div class="library_list">
+					<div class="count_number" data-bind="text: ($index()+1)">0</div>
+					<div data-bind="component: { name: 'user-badge', params: { user: $data.model } }"></div>
+
+					<div class="follower_info">
+						<p class="foll_infospan">
+							<span class="foll_infospan" data-bind="text: $data.model.position"></span>
+							<span class="foll_infospan" data-bind="text: $data.model.address"></span>
+						</p>
+					</div>
+					<!-- ko if: $data.model.sendInvite() == true -->
+					<div class="req_down_field">
+						<!-- ko if: $data.model.confirmed() == true -->
+						<label data-title="{{userIsAlreadyInYourColleagues}}" class="icon_static static_green">
+							<span class="inside_image success_file"></span>
+						</label>
+						<!-- /ko -->
+						<!-- ko if: $data.model.confirmed() == false -->
+						<label data-title="{{youHaveSentRequest}}" class="icon_static static_orange">
+							<span class="inside_image wait_member"></span>
+						</label>
+						<!-- /ko -->
+					</div>
+					<!-- /ko -->
+
+					<!-- ko if: $data.model.sendInvite() == false -->
+					<div class="add_down_field">
+						<button type="button" data-bind="click: $data.model.subscribe" class="icon_btn btns_green" data-title="{{subscribeToUser}}">
+							<span class="inside_image add_colleagues"></span>
+						</button>
+					</div>
+					<!-- /ko -->
+				</div>
+				<!-- /ko -->
+				<!-- ko if: filterResult(1) == 0 -->
+				<!-- ko template: '_search-empty-template' --><!-- /ko -->
+				<!-- /ko -->
+			</div>
+			<div class="menu_step_blck">
+				<!-- ko foreach: filterResult(2) -->
+				<div class="library_list">
+					<div class="count_number" data-bind="text: ($index()+1)">0</div>
+					<div class="info_point static_format float_left">
+						<span class="inside_image" data-bind="css: $data.model.getDocTypeClass.call($data.model)"></span>
+					</div>
+					<div class="follower_info">
+						<p class="foll_infospan"><a class="file_name" data-bind="click: $data.model.onClickOpenPreview.bind($data.model), text: $data.model.title">{{title}}</a></p>
+						<p class="font_small">
+							<span>{{owner}}: <a class="file_autor" data-bind="text: $data.model.ownerName, attr: {'href':'/module/user/profile/view/'+$data.model.ownerId()}">{{ownersName}}</a></span>
+						</p>
+					</div>
+					<!-- ko if: $data.model.availableInLibrary() == true -->
+					<div class="req_down_field">
+						<label data-tooltip="{{fileAddedToLibrary}}" class="icon_static static_green" >
+							<span class="inside_image success_file"></span>
+						</label>
+					</div>
+					<!-- /ko -->
+					<!-- ko if: $data.model.availableInLibrary() == false -->
+					<div class="add_down_field">
+						<button type="button" class="icon_btn btns_green" data-bind="click: $data.model.onClickCopyToMyLibrary.bind($data.model)">
+							<span class="inside_image add_tolibrary"></span>
+						</button>
+					</div>
+					<!-- /ko -->
+				</div>
+				<!-- /ko -->
+				<!-- ko if: filterResult(2) == 0 -->
+				<!-- ko template: '_search-empty-template' --><!-- /ko -->
+				<!-- /ko -->
+			</div>
+			<div class="menu_step_blck">
+				<!-- ko foreach: filterResult(3) -->
+				<div class="library_list">
+					<div class="count_number" data-bind="text: ($index()+1)">0</div>
+
+					<!--ko switch: model.status -->
+					<!--ko case: 'PLANNED'-->
+					<div class="info_point static_green float_left">
+						<span class="inside_image webinar_format"></span>
+					</div>
+					<!-- /ko -->
+					<!--ko case: 'ONLINE'-->
+					<div class="info_point static_orange float_left">
+						<span class="inside_image webinar_format"></span>
+					</div>
+					<!-- /ko -->
+					<!--ko case: 'CANCELED'-->
+					<div class="info_point static_red float_left">
+						<span class="inside_image webinar_format"></span>
+					</div>
+					<!-- /ko -->
+					<!--ko case: 'CLOSED'-->
+					<div class="info_point static_grey float_left">
+						<span class="inside_image webinar_format"></span>
+					</div>
+					<!-- /ko -->
+					<!-- /ko -->
+
+					<div class="follower_info">
+						<p class="foll_infospan"><a class="blue" data-bind="text: $data.model.title(), attr: {'href':'/webinar/view/'+$data.model.event_id()}">{{title}}</a></p>
+						<!--ko switch: model.status -->
+						<!--ko case: 'PLANNED'-->
+						<p class="font_small">{{upcomingWebinar}}</p>
+						<!-- /ko -->
+						<!--ko case: 'ONLINE'-->
+						<p class="font_small">{{launchedWebinar}}</p>
+						<!-- /ko -->
+						<!--ko case: 'CANCELED'-->
+						<p class="font_small">{{canceledWebinar}}</p>
+						<!-- /ko -->
+						<!--ko case: 'CLOSED'-->
+						<p class="font_small">{{completeWebinar}}</p>
+						<!-- /ko -->
+						<!-- /ko -->
+					</div>
+				</div>
+				<!-- /ko -->
+				<!-- ko if: filterResult(3) == 0 -->
+				<!-- ko template: '_search-empty-template' --><!-- /ko -->
+				<!-- /ko -->
+			</div>
+		</div>
+	</div>
+	<!-- /ko -->
+	<!-- ko if: onEnter() == true && items().length == 0 && searchString().length > 0 -->
+	<!-- ko template: '_search-empty-template' --><!-- /ko -->
+	<!-- /ko -->
+	<!-- /ko -->
+	<!-- /ko -->
+	</div>
+</div>

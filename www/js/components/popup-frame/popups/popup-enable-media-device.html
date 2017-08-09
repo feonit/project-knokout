@@ -1,0 +1,70 @@
+﻿<div class="popUp_Window delete_collegue">
+    <div class="text_field_cent">
+        <div class="popup_notification_block">
+            <div class="popup_icon_block float_left library_restriction_icon"></div>
+            <div class="popup_text_notification two_strings">{{pleaseEnableDevice}}</div>
+						
+						<input id="hiden_check" class="show_message" type="checkbox" />
+						<div class="wide_pop_up_area">
+							<label for="hiden_check" class="blue_span cursor_point label_toggle" data-after="Скрыть" data-before="Как это сделать?"></label>
+						</div>
+						<div class="hiden_options">
+									<!-- ko if: ko.utils.isChrome -->
+									<div class="option_step">
+										<div class="option_step_number">1</div>
+										<div class="option_step_text">Найдите иконку с камерой в адресной строке Вашего браузера и щелкните по ней. </div>
+									</div>
+									<div class="align_center"><img src="/images/mediaEnableImg/chrome_url_bar_img.png" alt="" /></div>
+									<div class="option_step">
+										<div class="option_step_number">2</div>
+										<div class="option_step_text">В появившемся диалоге выберите опцию «Предоставить доступ к камере и микрофону», нажмите кнопоку «Готово».</div>
+									</div>
+									<div class="align_center"><img src="/images/mediaEnableImg/chrome_allow_step_img.png" alt="" /></div>
+									<!-- /ko-->
+									<!-- ko if: ko.utils.isFirefox -->
+									<div class="option_step">
+										<div class="option_step_number">1</div>
+										<div class="option_step_text">Найдите иконку с камерой в адресной строке Вашего браузера и щелкните по ней. </div>
+									</div>
+									<div class="align_center"><img src="/images/mediaEnableImg/ff_url_bar_img.png" alt="" /></div>
+									<div class="option_step">
+										<div class="option_step_number">2</div>
+										<div class="option_step_text">В появившемся диалоге нажмите на кнопку «Разрешить доступ к выбранным устройствам». </div>
+									</div>
+									<div class="align_center"><img src="/images/mediaEnableImg/ff_allow_step_img.png" alt="" /></div>
+									<!-- /ko-->
+									<!-- ko if: ko.utils.isOpera-->
+									<div class="option_step">
+										<div class="option_step_number">1</div>
+										<div class="option_step_text">Найдите иконку с камерой в адресной строке Вашего браузера и щелкните по ней. </div>
+									</div>
+									<div class="align_center"><img src="/images/mediaEnableImg/opera_url_bar_img.png" alt="" /></div>
+									<div class="option_step">
+										<div class="option_step_number">2</div>
+										<div class="option_step_text">В появившемся диалоге нажмите на кнопку «Очистить настройку и обновить».</div>
+									</div>
+									<div class="align_center"><img src="/images/mediaEnableImg/opera_reset_step_img.png" alt="" /></div>
+									<div class="option_step">
+										<div class="option_step_number">3</div>
+										<div class="option_step_text">В следующем всплывающем окне нажмите на кнопку «Разрешить».</div>
+									</div>
+									<div class="align_center"><img src="/images/mediaEnableImg/opera_allow_step_img.png" alt="" /></div>
+									<!-- /ko-->
+						</div>
+						
+        </div>
+        <div class="buttons_container">
+					<div class="float_left button_text_container">
+						Продолжить?
+					</div>
+            <div class="float_right">
+                <button type="button" class="icon_btn btns_red modal_button_cancel">
+                    <span class="inside_image delete_btn"></span>
+                </button>
+                <button type="button" class="icon_btn btns_green modal_button_ok">
+                    <span class="inside_image success_file"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

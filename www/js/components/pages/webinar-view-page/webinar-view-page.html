@@ -1,0 +1,68 @@
+<link rel="stylesheet" type="text/css" href="/css/video-js.css" />
+<!-- ko with: $root -->
+<!-- ko with: eventModel() -->
+<!-- ko if: loaded()-->
+<div class="right_btns" >
+	<button type="button" data-bind="visible: $data.buttons.indexOf('reject')!==-1, click: userCancel" class="btn btns_red" >{{refuse}}</button>
+	<button type="button" data-bind="visible: $data.buttons.indexOf('join')!==-1, click: function() { join(function() { window.location.reload(); }) }" class="btn btns_blue" >{{toParticipate}}</button>
+	<button type="button" data-bind="visible: $data.buttons.indexOf('done')!==-1, click: finishConfirm" class="btn btns_red" >{{finish}}</button>
+	<button type="button" data-bind="visible: $data.buttons.indexOf('cancel')!==-1, click: showPopupWithCancelConfirm" class="btn btns_red" >{{cancel}}</button>
+	<button data-bind="visible: $data.buttons.indexOf('invite')!==-1, click: joinAndRedirectToWebinar" class="btn btns_blue" >{{join}}</button>
+	<a data-bind="visible: $data.buttons.indexOf('edit')!==-1, attr: { 'href':getHrefToEdit() }" class="btn btns_blue" >{{edit}}</a>
+	<button type="button" class="float_right btn btns_blue delay" data-title="{{repeatWebinar}}" data-bind="visible: isAuthor() && status() === 'CLOSED', click: recreateWeibinar">{{repeat}}</button>
+</div>
+<h1 data-bind="text: $data.title"></h1>
+<div class="web_info_user margin_top margin_bottom_20px">
+	<div data-bind="component: { name: 'user-badge', params: { user: new UserModel(author()) } }"></div>
+
+	<div class="float_left webinar_status planed_inf" data-bind="css: $data.getCssClass(), text: $data.getTextStatus()"></div>
+	<div class="float_left webinar_status past_inf" data-bind="visible: ($data.status()=='PLANNED')">
+	<span>{{startThrough}}</span> <span data-bind="text: finalCountdown"></span></div>
+</div>
+
+<!-- ko if: participantsCollection().loaded() -->
+<div class="main_menu" id="event_view_tabs" data-bind="renderTabs: { template: '_tabs-template', hashEnabled: true, tabs: [
+{'tabTitle': '{{information}}'},
+{'tabTitle': '{{participants}}'},
+{'tabTitle': '{{materials}}', disable: status() !== 'CLOSED' },
+{'tabTitle': '{{record}}', disable: !(status() == 'CLOSED' && ( is_public() || currentUserIsParticipantOrAuthor()) ) },
+]},
+">
+	<!--{'tabTitle': '{{liveBroadcast}}', disable: status() !== 'ONLINE' },-->
+
+</div>
+<div class="menu_switcher">
+
+	<div id="informationTab" class="menu_step_blck">
+		<DIV data-bind="component: { name: 'tab-webinar-information', params: { componentName: 'componentTabWebinarInformation' } }"></DIV>
+	</div>
+
+	<div id="participantsTab" class="menu_step_blck second_main_parent">
+		<DIV data-bind="component: { name: 'tab-webinar-participants', params: { componentName: 'componentWebinarParticipants' } }"></DIV>
+	</div>
+
+	<!-- ko if: status() === 'ONLINE' -->
+	<!--<div id="etherOnline" class="menu_step_blck second_main_parent">-->
+		<!--<DIV data-bind="component: { name: 'tab-live-broadcast', params: { componentName: 'componentTabLiveBroadcast' } }"></DIV>-->
+	<!--</div>-->
+	<!-- /ko -->
+
+	<!-- ko if: status() === 'CLOSED' -->
+	<div id="filesWebinarTab" class="menu_step_blck second_main_parent">
+		<DIV data-bind="component: { name: 'tab-webinar-files', params: { componentName: 'componentTabWebinarFiles' } }"></DIV>
+	</div>
+	<!-- /ko -->
+
+	 <!--ko if: status() === 'CLOSED' && ( is_public() || currentUserIsParticipantOrAuthor() ) -->
+	<div id="recordWebinarTab" class="menu_step_blck second_main_parent">
+		<DIV data-bind="component: { name: 'tab-webinar-record', params: { componentName: 'componentTabWebinarRecord' } }"></DIV>
+	</div>
+	 <!--/ko -->
+
+</div>
+<!-- /ko -->
+
+
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->

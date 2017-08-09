@@ -1,0 +1,35 @@
+<!-- ko if: alienUser().isLoad() -->
+<h1 data-bind="text: alienUser().name() + ' ' + alienUser().family()"></h1>
+
+<div class="main_menu" id="otherProfileTabsComponent" data-bind="renderTabs: {
+	template: '_tabs-template',
+	hashEnabled: true,
+	tabs: [{'tabTitle': '{{profile}}'},
+		{'tabTitle': '{{library}}', counterEval: 'application.root().catalogViewModel()== \'\' ? 0 : application.root().catalogViewModel().countOfAllFiles()'},
+		{'tabTitle': '{{colleagues}}', counterEval: 'application.root().colleagues()== \'\' ? 0 : application.root().colleagues().total()'},
+		{'tabTitle': '{{webinars}}', counterEval: 'application.root().webinarsCollection()== \'\' ? 0 : application.root().webinarsCollection().total()'}]
+}"></div>
+
+<div class="menu_switcher">
+	<div class="menu_step_blck align_center" id="userTab">
+		<!--  if: activeTabIndex() === 0 -->
+		<DIV data-bind="component: { name: 'tab-profile-friends', params: { componentName: 'componentTabProfileFriends', route: $root.route } }"></DIV>
+		<!-- /ko -->
+	</div>
+	<div class="menu_step_blck second_main_parent" id="libraryTab">
+		<!--  if: activeTabIndex() === 1 -->
+		<DIV data-bind="component: { name: 'tab-library-friends', params: { componentName: 'componentTabLibraryFriends', route: $root.route } }"></DIV>
+		<!-- /ko -->
+	</div>
+	<div class="menu_step_blck second_main_parent" id="colleaguesTab">
+		<!--  if: activeTabIndex() === 2 -->
+		<DIV data-bind="component: { name: 'tab-colleagues-friends', params: { componentName: 'componentTabColleaguesFriends', route: $root.route } }"></DIV>
+		<!-- /ko -->
+	</div>
+	<div class="menu_step_blck second_main_parent" id="webinarsTab">
+		<!--  if: activeTabIndex() === 3 -->
+		<DIV data-bind="component: { name: 'tab-webinars-friends', params: { componentName: 'componentTabWebinarsFriends', route: $root.route } }"></DIV>
+		<!-- /ko -->
+	</div>
+</div>
+<!-- /ko -->

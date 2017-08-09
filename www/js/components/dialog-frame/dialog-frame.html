@@ -1,0 +1,73 @@
+<div class="chat_holder js_main_chat_container" data-bind="event: { scroll: scrollingTop }">
+	<div class="inside_center" data-bind="with: $root.chat()">
+		<div class="js_chat_header chat_header personal_chat">
+			<div class="right_btns">
+				<a href="" class="icon_btn btns_red" data-bind="click: $parent.close.bind($parent), attr: { href: $parent.getHrefToBack() }" data-title="{{close}}" >
+					<span class="inside_image delete_btn"></span>
+				</a>
+			</div>
+			<h1>{{dialog}}</h1>
+			<div class="main_menu">
+				<div class="sub_menu_item selected_m">
+					<!-- ko if: member()-->
+					<!-- ko text: member().fullName() -->
+					<!-- /ko -->
+					<!-- /ko -->
+				</div>
+			</div>
+			<div class="preloader" data-bind="visible: uploading()">
+				<span class="preloader_core"></span>
+			</div>
+		</div>
+		<div class="second_main_parent chat_body dialogues_top">
+			<!-- ko switch: loading() -->
+				<!-- ko case: true -->
+				<div class="preloader">
+					<span class="preloader_core"></span>
+				</div>
+				<!-- /ko -->
+				<!-- ko case: false-->
+					<!-- ko if: loaded() -->
+						<!-- ko if: models().length == 0 -->
+						<div class="box_message">
+							<div class="info_point static_grey">
+								<span class="inside_image colleagues_format"></span>
+							</div>
+							<div class="separate_message">{{dialoguesHaveNoMessages}}</div>
+						</div>
+						<!-- /ko -->
+						<div class="botttom_message_show">
+							<!-- ko foreach: models() -->
+							<div class="chat_message" data-bind="css: ($data.author().id() == $root.currentUser().id())?'user_message':'guest_message'">
+								<!-- ==================================== -->
+								<div data-bind="component: { name: 'user-badge', params: { user: $data.author() } }"></div>
+								<!-- ==================================== -->
+								<div class="message_line grey_skin">
+									<div class="chat_mess_separator">
+										<!-- ko if: isConfirmedByServer()-->
+										<span class="time_eff_chat" data-bind="text: $data.time()">00:00</span>
+										<!-- /ko -->
+										<!-- ko ifnot: isConfirmedByServer()-->
+										<div class="preloader loader_chat_message">
+											<span class="preloader_core"></span>
+										</div>
+										<!-- /ko -->
+										<div class="dialogue_message_block" data-bind="text: $data.message()"></div>
+									</div>
+									<span class="arrow_eff"></span>
+								</div>
+							</div>
+							<!-- /ko -->
+						</div>
+					<!-- /ko -->
+				<!-- /ko -->
+			<!-- /ko -->
+		</div>
+		<div class="second_main_parent chat_footer js_chat_footer">
+			<a class="btn btns_blue float_right top_align delay" data-title="{{writeMessage}}" data-bind="click: onSendMessage">{{write}}</a>
+			<div class="input_field">
+				<input type="text" data-bind="enterKey: onSendMessage, value: myMessage, validate: myMessage, valueUpdate: 'input'" class="regular_input dialogue_input">
+			</div>
+		</div>
+	</div>
+</div>

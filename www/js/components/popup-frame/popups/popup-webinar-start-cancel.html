@@ -1,0 +1,38 @@
+<div class="popUp_Window" data-bind="with: $root.uiEvent() == '' ? $root.eventModel() : $root.uiEvent().event()">
+	<div class="text_field_cent">
+		<div class="popup_notification_block">
+			<div class="popup_icon_block float_left webinar_leave_icon"></div>
+			<div class="popup_text_notification">
+				<!-- ko if: started() && isAuthor()-->
+				{{areYouGoingToEndWebinar}}
+				<!-- /ko -->
+				<!-- ko if: started() && !isAuthor()-->
+				{{areYouGoingToLeaveWebinar}}
+				<!-- /ko -->
+				<!-- ko if: !started() -->
+				{{areYouGoingToCancelWebinar}}
+				<!-- /ko -->
+			</div>
+		</div>
+		<div class="buttons_container">
+			<div class="float_left button_text_container">
+				{{areYouSure}}
+			</div>
+			<div class="float_right">
+				<button type="button" class="icon_btn btns_red modal_button_cancel">
+					<span class="inside_image delete_btn"></span>
+				</button>
+				<!-- ko if: $root.uiEvent() === "" -->
+				<button type="button" class="icon_btn btns_green modal_button_ok" data-bind="click: isAuthor() ? cancel : doUserCancel">
+					<span class="inside_image success_file"></span>
+				</button>
+				<!-- /ko -->
+				<!-- ko with: $root.uiEvent -->
+				<button type="button" class="icon_btn btns_green modal_button_ok" data-bind="click: $data.cancelWebinar">
+					<span class="inside_image success_file"></span>
+				</button>
+				<!-- /ko -->
+			</div>
+		</div>
+	</div>
+</div>

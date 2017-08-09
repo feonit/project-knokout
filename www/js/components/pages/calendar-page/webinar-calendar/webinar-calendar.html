@@ -1,0 +1,32 @@
+<div class="calendar_item" data-bind="css: $parent.getCssClass()">
+	<div class="webinar_information">
+		<div class="webinar_header float_left">
+			<a class="web_link_n" data-bind="attr: {'href':'/webinar/view/' + $parent.event_id()}, text: $parent.title"></a>
+		</div>
+		<div class="webinar_autor float_right">
+			<div data-bind="component: { name: 'user-badge', params: { user: new UserModel($parent.author()) } }"></div>
+
+
+			<div class="webinar_status image_status float_right" data-bind="css: { 'on_air_btn' : $parent.status() === 'ONLINE' }">
+				<!-- ko text: $parent.getTextStatus() --><!-- /ko -->
+
+				<!-- ko if: $parent.status() === 'ONLINE' -->
+				<button type="button" class="btn btns_blue delay none" data-bind="click: $parent.joinAndRedirectToWebinar.bind($parent) ">{{join}}</button>
+				<!-- /ko -->
+			</div>
+
+		</div>
+	</div>
+	<div class="webinar_date_time">
+		<div class="date_line_view" data-bind="style: { width: webinarTime, left: firstPosition}">
+			<div class="time_counter time_left_over" data-bind="text: $parent.russian_startTime"></div>
+			<div class="time_counter time_right_over" data-bind="text: $parent.russian_endTime"></div>
+			<div class='over_time_parent' data-bind="attr: { id: getId() }">
+				<div class="overtime_line left_over" data-bind="style: { width: leftOvertime}"></div>
+				<div class="overtime_line right_over" data-bind="style: { width: rightOvertime}"></div>
+			</div>
+			<div class="line_note_border left_note_pos"></div>
+			<div class="line_note_border right_note_pos"></div>
+		</div>
+	</div>
+</div>
